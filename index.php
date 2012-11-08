@@ -1,3 +1,9 @@
 <?php
-echo 'Testando o google code';
+
+require_once 'SimpleReport.php';
+
+$relatorio = new SimpleReport();
+
+
+
 ?>
