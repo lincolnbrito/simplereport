@@ -1,5 +1,4 @@
 <?php
-
 require_once 'fpdf.php';
 
 class SimpleReport{
@@ -7,6 +6,7 @@ class SimpleReport{
 	public function __construct(){
 		
 	}
+	
 	
 }
 
