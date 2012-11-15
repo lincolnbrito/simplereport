@@ -1,15 +1,26 @@
 <?php
-require_once 'XmlLoader.php';
-require_once 'SimpleReport.php';
-require_once 'SimpleSerializeManager.php';
-require_once 'MontaRelatorio.php';
+include 'simpleReport/core/SRXmlLoader.php';
+include 'simpleReport/core/SRCompileManager.php';
+include 'simpleReport/core/SRFillManager.php';
 
-if(file_exists('report.sr')){
-	$design = unserialize(file_get_contents('report.sr'));
-}else{
-	$design = XmlLoader::load('report.jrxml');
-}
- 
-$print = MontaRelatorio::desenha($design);
-$print->imprimir();
+/*
+ * Obtem uma instancia da classe SimpleDesign
+ * Nesse momento o arquivo xml é interpretado e analisado
+ */
+$design = SRXmlLoader::load('report.jrxml');
+
+/*
+ * Obtem uma intancia da classe SimpleReport
+ * SimpleReport representa o relatorio serializado
+ * 
+ * Se você já tem o arquivo serializado é só usar assim
+ * $report = SRGetInstanceSimpleReport('report.sr');
+ * 
+ */
+
+$report = SRCompileManager::compile($design);
+
+SRFillManager::fillReport($report)->show();
+
+
 ?>
