@@ -1,22 +1,25 @@
 <?php
 class SimpleDesign{
 
-	private $name = "name";
+	private $name = 'name';
+	
 	private $marginTop = 20;
 	private $marginRight = 20;
 	private $marginBottom = 20;
 	private $marginLeft = 20;
 	
-	private $title;
-	private $pageHeader;
-	private $columnHeader;
-	private $detail;
-	private $columnFooter;
-	private $pageFooter;
-	private $lastPageFooter;
-	private $summary;
-	private $background;
-	private $noData;
+	private $bandTitle;
+	private $bandPageHeader;
+	private $bandColumnHeader;
+	private $bandDetail;
+	private $bandColumnFooter;
+	private $bandPageFooter;
+	private $bandLastPageFooter;
+	private $bandSummary;
+	private $bandBackground;
+	private $bandNoData;
+	
+	private $query;
 	
 	public function setName($name){
 		$this->name = $name;
@@ -25,8 +28,11 @@ class SimpleDesign{
 		return $this->name;
 	}
 	
-	public function setTitle(Band $band){
-		$this->title = $band;
+	public function setBandTitle(Band $band){
+		$this->bandTitle = $band;
+	}
+	public function getBandTitle(){
+		return $this->bandTitle;
 	}
 	
 }
