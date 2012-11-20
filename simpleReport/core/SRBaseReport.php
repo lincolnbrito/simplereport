@@ -78,12 +78,12 @@ class SRBaseReport{
 		$this->bottomMargin = $bottomMargin;
 	}
 	
-	public function getLeftMargin_1() {
-		return $this->leftMargin;
+	public function getTopMargin() {
+		return $this->topMargin;
 	}
 	
-	public function setLeftMargin_1($leftMargin) {
-		$this->leftMargin = $leftMargin;
+	public function setTopMargin($topMargin) {
+		$this->topMargin = $topMargin;
 	}
 	
 	public function getQueryText() {

@@ -2,6 +2,7 @@
 include 'simpleReport/SimpleDesign.php';
 include 'simpleReport/core/SRBand.php';
 include 'simpleReport/elements/StaticText.php';
+include 'simpleReport/elements/TextField.php';
 
 abstract class SRXmlLoader{
 	
@@ -13,32 +14,49 @@ abstract class SRXmlLoader{
 		 * os dados do XML é o de menos
 		 */
 		$sd = new SimpleDesign();
-		
+
 		$sd->setName("Report");
-		$sd->setLeftMargin(50);
-		$sd->setRightMargin(50);
+		$sd->setTopMargin(20);
+		$sd->setLeftMargin(20);
+		$sd->setRightMargin(20);
+		$sd->setQueryText("select nome from empresas");
+		
+		// BANDA TITLE
 		$bandTitle = new SRBand();
-		
+		$bandTitle->setHeight(79);
 		$staticText1 = new StaticText();
-		$staticText1->setText("Static Text 1!");
-		$staticText1->setX(10);
-		$staticText1->setY(10);
+		$staticText1->setText("TESTE2");
+		$staticText1->setX(22);
+		$staticText1->setY(33);
 		$staticText1->setWidth(100);
-		$staticText1->setHeight(50);
+		$staticText1->setHeight(20);
+		$staticText1->setForecolor('#990000');
 		$bandTitle->addElement($staticText1);
-		
-		$staticText2 = new StaticText();
-		$staticText2->setText("Static Text 2!");
-		$staticText2->setX(100);
-		$staticText2->setY(10);
-		$staticText2->setWidth(100);
-		$staticText2->setHeight(50);
-		$bandTitle->addElement($staticText2);
-		
 		$sd->setBandTitle($bandTitle);
 		
-		return $sd;
+		// BANDA PAGE HEADER
+		$pageHeader = new SRBand();
+		$pageHeader->setHeight(35);
+		$sd->setBandPageHeader($pageHeader);
 		
+		// BANDA COLUMN HEADER
+		$columnHeader = new SRBand();
+		$columnHeader->setHeight(28);
+		$sd->setBandPageHeader($columnHeader);
+		
+		// BANDA DETAIL
+		$detail = new SRBand();
+		$detail->setHeight(30);
+		$textField = new TextField();
+		$textField->setTextFieldExpression('nome');
+		$textField->setX(0);
+		$textField->setY(0);
+		$textField->setWidth(100);
+		$textField->setHeight(20);
+		$detail->addElement($textField);
+		$sd->setBandPageHeader($detail);
+		
+		return $sd;
 	}
 	
 }
