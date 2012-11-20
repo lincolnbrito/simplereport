@@ -7,7 +7,8 @@ class SRElements{
 	private $y;
 	private $width;
 	private $height;
-
+	private $forecolor;
+	
 	public function getX(){
 		return $this->x;
 	}
@@ -36,6 +37,12 @@ class SRElements{
 		$this->height = $height;
 	}
 	
+	public function getForecolor(){
+		return $this->forecolor;
+	}
+	public function setForecolor($forecolor){
+		$this->forecolor = $forecolor;
+	}
 }
 
 ?>
