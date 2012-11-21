@@ -8,7 +8,7 @@ class SimplePrint{
 		$this->pdf = $pdf;
 	}
 	
-	public function show(){
+	public function outPut(){
 		$this->pdf->Output();	
 	}
 	

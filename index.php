@@ -30,5 +30,5 @@ while($r = mysql_fetch_assoc($consulta)){
 }
 
 
-SRFillManager::fillReport($report)->show();
+SRFillManager::fillReport($report, $dados)->outPut();
 ?>

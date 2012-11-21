@@ -18,8 +18,20 @@ class SRFillManager{
 		 * func_get_args - Retorna os valores passados por parâmetro na forma de um vetor indexado numericamente.
 		 * */
 		
+		
+		
+		
 		$sd = func_get_arg(0);
-		//$dados = func_get_arg(1);
+		//$sd = new SimpleReport();
+		
+		$dados = func_get_arg(1);
+		
+		
+		$isFirstPage = true;
+		$islaSTPage = true;
+		$pageSizeFilled = 0;
+		
+		$sizePage = $sd->getHeigth();
 		
 		/*
 			1º verificar se o record set possui valores
@@ -37,27 +49,28 @@ class SRFillManager{
 			12º add nova pagina, começa do passo 1 e quando chegar na banda detail tem que continuar de onde parou
 		*/
 		
-		/* PDF DE EXEMPLO CRIADO NO BRAÇO */
-		
-		$isFirstPage = true;
-		$islaSTPage = false;
-		$pageSizeFilled = 0;
-		
 		$pdf = new FPDF('p', 'pt', 'A4');
 		SRFillManager::addNewPage($pdf, $sd);
-
-		if(empty($dados)){
-			
-			SRFillManager::fillBandTitle($pdf, $sd);
-			
-		}else{
 		
+		if(empty($dados)){
+		}else{
 			
+			if($isFirstPage){
+				SRFillManager::fillBand($pdf, $sd->getBandTitle(), $pageSizeFilled);
+				$isFirstPage = false;
+			}
 			
+			SRFillManager::fillBand($pdf, $sd->getBandPageHeader(), $pageSizeFilled);
+			SRFillManager::fillBand($pdf, $sd->getBandColumnHeader(), $pageSizeFilled);
+			
+			$free = SRFillManager::findFreeSpace($sd, $pageSizeFilled, $islaSTPage);
+			
+		
 		}
 		
-		return new SimplePrint($pdf);
-		// Aqui tem que pegar o relatorio e preencher com os dados		
+		
+		
+		return new SimplePrint($pdf);		
 	}
 
 	private static function addNewPage(&$pdf, &$sd){
@@ -66,14 +79,37 @@ class SRFillManager{
 		$pdf->SetFont('Arial');
 	}
 	
-	private static function fillBandTitle(&$pdf, &$sd){
+	private static function fillBand(&$pdf, SRBand $band, &$pageSizeFilled){
 		
-		$elements = $sd->getBandTitle()->getElements();
-		foreach ($elements as $element){
-			$pdf->SetXY($element->getX(),$element->getY());
+		$pageSizeFilled += $band->getHeight();
+		if($band->isEmpty())
+			return true;
+		
+		foreach ($band->getElements() as $element){
+			$pdf->SetXY($element->getX(),$element->getY()+$pageSizeFilled); // mais as margens
 			$pdf->Cell($element->getWidth(),$element->getHeight(),$element->getText());
 		}
-			
+		
+	}
+
+	
+	private static function findFreeSpace(SimpleReport $sd, $pageSizeFilled, $islaSTPage){
+		
+		$totalSizeBands = 0;
+		
+		if(!is_null($sd->getBandColumnFooter())){
+			$totalSizeBands += $sd->getBandColumnFooter()->getHeight();
+		}
+		
+		if(!is_null($sd->getBandPageFooter())){
+			$totalSizeBands += $sd->getBandPageFooter()->getHeight();
+		}
+		
+		if($islaSTPage && !is_null($sd->getBandSummary())){
+			$totalSizeBands += $sd->getBandSummary()->getHeight();
+		}
+		
+		return $sd->getHeigth() - ($pageSizeFilled+$totalSizeBands);
 	}
 	
 }

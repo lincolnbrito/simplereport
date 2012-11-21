@@ -25,8 +25,17 @@ abstract class SRXmlLoader{
 		$bandTitle = new SRBand();
 		$bandTitle->setHeight(79);
 		$staticText1 = new StaticText();
-		$staticText1->setText("TESTE2");
-		$staticText1->setX(22);
+		$staticText1->setText("Static text 1 band title");
+		$staticText1->setX(0);
+		$staticText1->setY(0);
+		$staticText1->setWidth(100);
+		$staticText1->setHeight(20);
+		$staticText1->setForecolor('#990000');
+		$bandTitle->addElement($staticText1);
+		unset($staticText1);
+		$staticText1 = new StaticText();
+		$staticText1->setText("Static text 2 Band title");
+		$staticText1->setX(152);
 		$staticText1->setY(33);
 		$staticText1->setWidth(100);
 		$staticText1->setHeight(20);
@@ -37,12 +46,20 @@ abstract class SRXmlLoader{
 		// BANDA PAGE HEADER
 		$pageHeader = new SRBand();
 		$pageHeader->setHeight(35);
+		$staticText1 = new StaticText();
+		$staticText1->setText("Static text 1 Band Page Header");
+		$staticText1->setX(22);
+		$staticText1->setY(33);
+		$staticText1->setWidth(100);
+		$staticText1->setHeight(20);
+		$staticText1->setForecolor('#990000');
+		$pageHeader->addElement($staticText1);
 		$sd->setBandPageHeader($pageHeader);
 		
 		// BANDA COLUMN HEADER
 		$columnHeader = new SRBand();
 		$columnHeader->setHeight(28);
-		$sd->setBandPageHeader($columnHeader);
+		$sd->setBandColumnHeader($columnHeader);
 		
 		// BANDA DETAIL
 		$detail = new SRBand();
@@ -54,7 +71,22 @@ abstract class SRXmlLoader{
 		$textField->setWidth(100);
 		$textField->setHeight(20);
 		$detail->addElement($textField);
-		$sd->setBandPageHeader($detail);
+		$sd->setBandDetail($detail);
+		
+		// BANDA COLUMN FOOTER
+		$columnFooter = new SRBand();
+		$columnFooter->setHeight(30);
+		$sd->setBandColumnFooter($columnFooter);
+		
+		// BANDA PAGE FOOTER
+		$pageFooter = new SRBand();
+		$pageFooter->setHeight(30);
+		$sd->setBandPageFooter($pageFooter);
+		
+		// BANDA PAGE FOOTER
+		$summary = new SRBand();
+		$summary->setHeight(30);
+		$sd->setBandSummary($summary);
 		
 		return $sd;
 	}
