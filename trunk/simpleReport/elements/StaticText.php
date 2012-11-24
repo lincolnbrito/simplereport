@@ -1,17 +1,14 @@
 <?php 
 
-include 'simpleReport/core/SRElements.php';
+require_once 'simpleReport/core/SRElements.php';
 
 class StaticText extends SRElements{
 
-	private $text;
+	public $text;
 		
-	public function getText(){
-		return $this->text;
-	}
-	
-	public function setText($text){
-		$this->text = $text;
+	public function draw(&$pdf){
+		$pdf->SetXY($this->x,$this->y);
+		$pdf->Cell($this->width,$this->height,$this->text);
 	}
 	
 }

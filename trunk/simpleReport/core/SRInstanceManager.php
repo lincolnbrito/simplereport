@@ -1,5 +1,5 @@
 <?php
-include 'simpleReport/SimpleReport.php';
+require_once 'simpleReport/SimpleReport.php';
 
 abstract class SRInstanceManager{
 

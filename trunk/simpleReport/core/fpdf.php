@@ -1132,10 +1132,10 @@ class FPDF{
 	function _loadfont($font)
 	{
 		// Load a font definition file from the font directory
-		include($this->fontpath.$font);
+		require_once($this->fontpath.$font);
 		$a = get_defined_vars();
 		if(!isset($a['name']))
-		$this->Error('Could not include font definition file');
+		$this->Error('Could not require_once font definition file');
 		return $a;
 	}
 
