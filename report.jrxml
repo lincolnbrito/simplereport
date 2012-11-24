@@ -7,10 +7,21 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="107" y="31" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Anderson Souza zé]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="20" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Static text]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="61" splitType="Stretch"/>

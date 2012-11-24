@@ -1,5 +1,5 @@
 <?php
-include 'simpleReport/core/SRBaseReport.php';
+require_once 'simpleReport/core/SRBaseReport.php';
 
 class SimpleDesign extends SRBaseReport{
 

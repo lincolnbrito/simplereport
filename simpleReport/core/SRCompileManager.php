@@ -1,5 +1,5 @@
 <?php
-include 'simpleReport/core/SRInstanceManager.php';
+require_once 'simpleReport/core/SRInstanceManager.php';
 
 abstract class SRCompileManager{
 
@@ -16,7 +16,7 @@ abstract class SRCompileManager{
 		$serializedFile = implode(':', $serializedFile);
 		
 		// Cria o arquivo serializado
-		file_put_contents($sd->getName().'.sr', $serializedFile);
+		file_put_contents($sd->name.'.sr', $serializedFile);
 		
 		return SRInstanceManager::getInstance($serializedFile);
 	}  

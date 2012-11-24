@@ -2,7 +2,7 @@
 
 class SRBand{
 
-	private $height = 0;
+	public $height = 0;
 	private $elements = array();
 
 	public function isEmpty(){
@@ -15,14 +15,6 @@ class SRBand{
 
 	public function getElements(){
 		return $this->elements;	
-	}
-	
-	public function getHeight(){
-		return $this->height;
-	}
-	
-	public function setHeight($height){
-		$this->height = $height;
 	}
 	
 }
