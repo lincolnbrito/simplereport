@@ -4,7 +4,8 @@ require_once 'simpleReport/core/SRBand.php';
 require_once 'simpleReport/elements/StaticText.php';
 require_once 'simpleReport/elements/TextField.php';
 require_once 'simpleReport/elements/Image.php';
-
+require_once 'simpleReport/elements/Rectangle.php';
+require_once 'simpleReport/core/SRColor.php';
 class SRXmlLoader{
 	
 	private $sd = null;
@@ -40,16 +41,31 @@ class SRXmlLoader{
 		$bandTitle->addElement($image);
 		$this->sd->bandTitle = $bandTitle;
 		
+		
 		// BANDA PAGE HEADER
 		$pageHeader = new SRBand();
-		$pageHeader->height = 35;
+		$pageHeader->height = 100;
 		$staticText1 = new StaticText();
 		$staticText1->text = "Static text 1 band title";
 		$staticText1->x = 0;
 		$staticText1->y = 0;
-		$staticText1->width = 100;
+		$staticText1->width = 120;
 		$staticText1->height = 20;
+		$staticText1->forecolor = SRColor::obtemRGB('#FF0000');
+		$staticText1->backcolor = SRColor::obtemRGB('#00FF00');
+		$staticText1->paintBackground = true;
 		$pageHeader->addElement($staticText1);
+		
+		$rectangle = new Rectangle();
+		$rectangle->x = 200;
+		$rectangle->y = 00;
+		$rectangle->width = 200;
+		$rectangle->height = 50;
+		$rectangle->forecolor = SRColor::obtemRGB('#FF0000');
+		$rectangle->backcolor = SRColor::obtemRGB('#00FF00');
+		
+		$pageHeader->addElement($rectangle);
+		
 		$this->sd->bandPageHeader = $pageHeader;
 		
 		// BANDA COLUMN HEADER

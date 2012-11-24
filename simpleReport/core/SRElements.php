@@ -8,6 +8,8 @@ class SRElements implements ISRElements{
 	public $width;
 	public $height;
 	public $forecolor;
+	public $backcolor;
+	public $paintBackground;
 	
 	public function draw(&$pdf){
 		

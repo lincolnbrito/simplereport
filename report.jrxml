@@ -7,17 +7,24 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="166" splitType="Stretch">
 			<staticText>
 				<reportElement x="107" y="31" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[Anderson Souza zé]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="317" y="20" width="100" height="20"/>
+				<reportElement x="55" y="68" width="100" height="20"/>
 				<textElement/>
-				<text><![CDATA[Static text]]></text>
+				<text><![CDATA[opa]]></text>
 			</staticText>
+			<image>
+				<reportElement x="281" y="17" width="250" height="100"/>
+				<imageExpression><![CDATA["C:\\www\\SimpleReport\\chart.png"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="123" y="97" width="123" height="39" forecolor="#CC0000" backcolor="#FFFF00"/>
+			</rectangle>
 		</band>
 	</title>
 	<pageHeader>
