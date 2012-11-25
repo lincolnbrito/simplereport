@@ -13,8 +13,7 @@ class SRElements implements ISRElements{
 	
 	public function draw(&$pdf){
 		
-		$pdf->SetXY($this->x,$this->y);
-		$pdf->Cell($this->width,$this->height,$this->text);
+		
 			
 	}
 	
