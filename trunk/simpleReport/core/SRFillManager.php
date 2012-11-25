@@ -28,21 +28,77 @@ class SRFillManager{
 
 	private function rideReport($dados = ''){
 		
-		if($this->isFirstPage){
-			$this->fillBand($this->report->bandTitle);
-			$this->isFirstPage = false;
+		require_once 'simpleReport/config.php';
+		
+		$conexao = mysql_connect(SERVER, USER, PASSWORD);
+		$db_selected = mysql_select_db(DATABASE, $conexao);
+		$consulta = mysql_query($this->report->queryText, $conexao);
+		
+		
+		$jaLeuTitleNessaPagina = false;
+		$jaLeuPageHeaderNessaPagina = false;
+		$jaLeuColumnHeaderNessaPagina = false;
+		$jaLeuDetail = false;
+		
+		while($r = mysql_fetch_assoc($consulta)){
+			
+			if($this->isFirstPage && !$jaLeuTitleNessaPagina){
+				$this->fillBand($this->report->bandTitle);
+				$this->isFirstPage = false;
+				$jaLeuTitleNessaPagina = true;
+			}	
+			
+			if(!$jaLeuPageHeaderNessaPagina){
+				$this->fillBand($this->report->bandPageHeader);
+				$jaLeuPageHeaderNessaPagina = true;
+			}
+			
+			if(!$jaLeuColumnHeaderNessaPagina){
+				$this->fillBand($this->report->bandColumnHeader);
+				$jaLeuColumnHeaderNessaPagina = true;
+			}
+			
+			$free = $this->findFreeSpace();
+			$this->fillBandDetail($this->report->bandDetail, $r);
+
+			$num =  (int)($free/$this->report->bandDetail->height);			
+			
+			if($jaLeuDetail){
+				$this->fillBand($this->report->bandColumnFooter);
+			}
+			
 		}
-		
-		$this->fillBand($this->report->bandPageHeader);
-		$this->fillBand($this->report->bandColumnHeader);
-		
-		$free = $this->findFreeSpace();
-		
-		$this->fillDetail();
+			
 		
 	}
 	
-	private function fillDetail(){
+	private function fillBandDetail(SRBand $band, $record){
+		
+		if($band->isEmpty())
+			return true;
+		
+		$elements = $band->getElements();
+		
+		foreach ($elements as $element){
+			
+			$this->pdf->SetTextColor(0,0,0);
+			$this->pdf->SetFillColor(0,0,0);
+			
+			$e = new TextField();
+			$e->x = $element->x + $this->report->leftMargin;
+			$e->y = $element->y + $this->report->topMargin+$this->pageSizeFilled;
+			
+			$e->textFieldExpression = $record[$element->textFieldExpression];
+			
+			$e->draw($this->pdf, $this);
+						
+			unset($e);
+			unset($element);
+			
+		}
+		
+		$this->pageSizeFilled += $band->height;
+		unset($band);
 		
 	}
 	

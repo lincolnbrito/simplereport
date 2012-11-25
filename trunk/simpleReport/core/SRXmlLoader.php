@@ -14,6 +14,8 @@ class SRXmlLoader{
 		
 		$this->sd = new SimpleDesign();
 		$this->sd->name = 'Report';
+		$this->sd->queryText = 'select * from alunos';
+		
 		$this->sd->width = 595;
 		$this->sd->heigth = 842;
 		$this->sd->topMargin = 20;
@@ -70,22 +72,48 @@ class SRXmlLoader{
 		
 		// BANDA COLUMN HEADER
 		$columnHeader = new SRBand();
-		$columnHeader->height = 28;
+		$columnHeader->height = 50;
 		$this->sd->bandColumnHeader = $columnHeader;
 		
 		// BANDA DETAIL
 		$detail = new SRBand();
-		$detail->height = 30;
+		$detail->height = 20;
+		$field = new TextField();
+		$field->x = 10;
+		$field->y = 0;
+		$field->width = 100;
+		$field->height = 20;
+		$field->textFieldExpression =  'id';
+		$detail->addElement($field);
+		unset($field);
+		$field = new TextField();
+		$field->x = 30;
+		$field->y = 0;
+		$field->width = 100;
+		$field->height = 20;
+		$field->textFieldExpression = 'nome';
+		$detail->addElement($field);
+		unset($field);
 		$this->sd->bandDetail = $detail;
 		
 		// BANDA COLUMN FOOTER
 		$columnFooter = new SRBand();
-		$columnFooter->height = 30;
+		$columnFooter->height = 90;
+		$staticText1 = new StaticText();
+		$staticText1->text = "Static text 1 band column footer";
+		$staticText1->x = 0;
+		$staticText1->y = 0;
+		$staticText1->width = 120;
+		$staticText1->height = 20;
+		$staticText1->forecolor = SRColor::obtemRGB('#FF0000');
+		$staticText1->backcolor = SRColor::obtemRGB('#00FF00');
+		$staticText1->paintBackground = true;
+		$columnFooter->addElement($staticText1);
 		$this->sd->bandColumnFooter = $columnFooter;
 		
 		// BANDA PAGE FOOTER
 		$pageFooter = new SRBand();
-		$pageFooter->height = 30;
+		$pageFooter->height = 60;
 		$this->sd->bandPageFooter = $pageFooter;
 		
 		// BANDA PAGE FOOTER
