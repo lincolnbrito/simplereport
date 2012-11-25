@@ -20,10 +20,11 @@ class SRFillManager{
 		$this->sizePage = $this->report->heigth;
 		
 		$this->pdf = new FPDF('p', 'pt', 'A4');
+		$this->pdf->SetAutoPageBreak(false);
 		$this->addNewPage();
+		
 		$this->rideReport($this->dados);
 		return new SimplePrint($this->pdf);
-			
 	}
 
 	private function rideReport($dados = ''){
