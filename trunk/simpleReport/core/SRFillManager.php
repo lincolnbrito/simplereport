@@ -1,6 +1,6 @@
 <?php
 require_once 'simpleReport/core/fpdf.php';
-require_once 'simpleReport/SimplePrint.php';
+require_once 'simpleReport/core/SimplePrint.php';
 
 class SRFillManager{
 
@@ -13,152 +13,153 @@ class SRFillManager{
 	public $sizePage = 0;
 	
 	public function fillReport($args){
-		
+		$numP = func_num_args();
 		$this->report = func_get_arg(0);
-		$this->dados = func_get_arg(1);
+		
+		if($numP >1)
+			$this->dados = func_get_arg(1);
 		
 		$this->sizePage = $this->report->heigth;
-		
 		$this->pdf = new FPDF('p', 'pt', 'A4');
 		$this->pdf->SetAutoPageBreak(false);
-		$this->addNewPage();
 		
-		$this->rideReport($this->dados);
+		if(empty($this->report->queryText))
+			$this->rideReport();
+		else
+			$this->rideReportData();
+		
 		return new SimplePrint($this->pdf);
 	}
 
-	private function rideReport($dados = ''){
-		
+	private function rideReportData(){
 		require_once 'simpleReport/config.php';
 		
 		$conexao = mysql_connect(SERVER, USER, PASSWORD);
 		$db_selected = mysql_select_db(DATABASE, $conexao);
 		$consulta = mysql_query($this->report->queryText, $conexao);
 		
-		
 		$jaLeuTitleNessaPagina = false;
 		$jaLeuPageHeaderNessaPagina = false;
 		$jaLeuColumnHeaderNessaPagina = false;
 		$jaLeuDetail = false;
 		
+		$this->addNewPage();
+		
 		while($r = mysql_fetch_assoc($consulta)){
 			
 			if($this->isFirstPage && !$jaLeuTitleNessaPagina){
-				$this->fillBand($this->report->bandTitle);
+				$this->setBand($this->report->bandTitle);
 				$this->isFirstPage = false;
 				$jaLeuTitleNessaPagina = true;
 			}	
 			
 			if(!$jaLeuPageHeaderNessaPagina){
-				$this->fillBand($this->report->bandPageHeader);
+				$this->setBand($this->report->bandPageHeader);
 				$jaLeuPageHeaderNessaPagina = true;
 			}
 			
 			if(!$jaLeuColumnHeaderNessaPagina){
-				$this->fillBand($this->report->bandColumnHeader);
+				$this->setBand($this->report->bandColumnHeader);
 				$jaLeuColumnHeaderNessaPagina = true;
 			}
 			
 			$free = $this->findFreeSpace();
-			$this->fillBandDetail($this->report->bandDetail, $r);
+			$this->setBandDetail($this->report->bandDetail, $r);
+						
+			if(($free - $this->report->bandDetail->height) <= $this->report->bandDetail->height){
 
-			$num =  (int)($free/$this->report->bandDetail->height);			
-			
-			if($jaLeuDetail){
-				$this->fillBand($this->report->bandColumnFooter);
+				$this->setBandPageFooter($this->report->bandPageFooter);
+				
+				$this->addNewPage();
+				$jaLeuPageHeaderNessaPagina = false;
+				$jaLeuColumnHeaderNessaPagina = false;
 			}
 			
 		}
-			
 		
+		$this->setBand($this->report->bandSummary);
+		$this->setBandPageFooter($this->report->bandLastPageFooter);
+	}
+	
+	private function clearConfig(){
+		$this->pdf->SetTextColor(0,0,0);
+		$this->pdf->SetFillColor(0,0,0);
+		$this->pdf->SetFont('Arial', '', '10');
+	}
+	
+	private function setBand($b){
+		if(!empty($b)) $this->fillBand($b);
+	}
+	
+	private function setBandPageFooter($b){
+		if(!empty($b)) $this->fillBandPageFooter($b);
+	}
+	
+	private function setBandDetail($b,$r){
+		if(!empty($b)) $this->fillBandDetail($b, $r);
+	}
+	
+	private function fillBandPageFooter(SRBand $band){
+		if($band->isEmpty())
+			return true;
+		foreach ($band->getElements() as $element){
+			$c = clone $element;
+			$c->x += $this->report->leftMargin;
+			$c->y -= $band->height+$this->report->bottomMargin;
+			$c->draw($this->pdf, $this);
+			unset($c);
+			$this->clearConfig();
+		}
 	}
 	
 	private function fillBandDetail(SRBand $band, $record){
-		
-		if($band->isEmpty())
+		if($band->isEmpty()){
+			$this->pageSizeFilled += $band->height;
 			return true;
-		
-		$elements = $band->getElements();
-		
-		foreach ($elements as $element){
-			
-			$this->pdf->SetTextColor(0,0,0);
-			$this->pdf->SetFillColor(0,0,0);
-			
-			$e = new TextField();
-			$e->x = $element->x + $this->report->leftMargin;
-			$e->y = $element->y + $this->report->topMargin+$this->pageSizeFilled;
-			
-			$e->textFieldExpression = $record[$element->textFieldExpression];
-			
-			$e->draw($this->pdf, $this);
-						
-			unset($e);
-			unset($element);
-			
 		}
-		
+		foreach ($band->getElements() as $element){
+			$c = clone $element;
+			$c->x = $element->x + $this->report->leftMargin;
+			$c->y = $element->y + $this->report->topMargin+$this->pageSizeFilled;
+			$c->textFieldExpression = $record[$element->textFieldExpression];
+			$c->draw($this->pdf, $this);
+			unset($c);
+			$this->clearConfig();
+		}
 		$this->pageSizeFilled += $band->height;
-		unset($band);
-		
 	}
 	
+	private function fillBand(SRBand $band){
+		if($band->isEmpty()){
+			$this->pageSizeFilled += $band->height;
+			return true;
+		}
+		foreach ($band->getElements() as $element){
+			$c = clone $element;
+			$c->x += $this->report->leftMargin;
+			$c->y += $this->report->topMargin+$this->pageSizeFilled;
+			$c->draw($this->pdf, $this);
+			unset($c);
+			$this->clearConfig();
+		}
+		$this->pageSizeFilled += $band->height;
+	}
+
 	private function addNewPage(){
 		$this->pdf->SetMargins($this->report->leftMargin, $this->report->topMargin, $this->report->rightMargin);
 		$this->pdf->AddPage();
 		$this->pdf->SetFont('Arial');
+		$this->pageSizeFilled = 0;
 	}
 	
-	private function fillBand(SRBand $band){
-		
-		if($band->isEmpty())
-			return true;
-		
-		foreach ($band->getElements() as $element){
-			$element->x += $this->report->leftMargin;
-			$element->y += $this->report->topMargin+$this->pageSizeFilled;
-			$element->draw($this->pdf, $this);
-		}
-		
-		$this->pageSizeFilled += $band->height;
-	}
-
 	private function findFreeSpace(){
 		$totalSizeBands = 0;
-		if(!is_null($this->report->bandColumnFooter)){
+		if(!is_null($this->report->bandColumnFooter))
 			$totalSizeBands += $this->report->bandColumnFooter->height;
-		}
-		if(!is_null($this->report->bandPageFooter)){
+		if(!is_null($this->report->bandPageFooter))
 			$totalSizeBands += $this->report->bandPageFooter->height;
-		}
-		if($this->islaSTPage && !is_null($this->report->bandSummary)){
-			$totalSizeBands += $this->report->bandSummary->height;
-		}
 		return $this->sizePage-($this->pageSizeFilled+$totalSizeBands+$this->report->bottomMargin);
 	}
 	
 }
-
-
-/*
- * func_num_args - Retorna o número de parâmetros informados para a função.
-* func_get_arg  - Retorna um parâmetro determinado (pela posição).
-* func_get_args - Retorna os valores passados por parâmetro na forma de um vetor indexado numericamente.
-* */
-
-/*
- 1º verificar se o record set possui valores
-2º se não possui, decidir oque fazer e oque irá montar
-3º se sim, começar a preencher o relatorio
-
-4º verificar se esta na primeira pagina, se sim, desenhar a banda title
-5º ao ir montando o relatorio tem que ir guardando o tamannho já ocupado pelas bandas...
-6º preencher a banda pege header
-7º verificar o espaço que será necessário para preencher as bandas de baixo da detail
-8º dai então começar a preencher a banda detail ate o tamanho disponivel da pagina esgotar, quando esgotar dai...
-9º se esta na ultima pagina desenhar a banda summary
-10º entao começa a desenhar as bandas footer page
-11º desenhar o rodape
-12º add nova pagina, começa do passo 1 e quando chegar na banda detail tem que continuar de onde parou
-*/
 ?>
