@@ -30,8 +30,12 @@ class SRXmlLoader{
 		$staticText1->text = "Static text 1 band title";
 		$staticText1->x = 0;
 		$staticText1->y = 0;
-		$staticText1->width = 100;
+		$staticText1->width = 150;
 		$staticText1->height = 20;
+		$staticText1->isBold = true;
+		$staticText1->isItalic = true;
+		$staticText1->textAlignment = 'L';
+		$staticText1->fontSize = 20;
 		$bandTitle->addElement($staticText1);
 		
 		$image = new Image();
@@ -56,6 +60,7 @@ class SRXmlLoader{
 		$staticText1->forecolor = SRColor::obtemRGB('#FF0000');
 		$staticText1->backcolor = SRColor::obtemRGB('#00FF00');
 		$staticText1->paintBackground = true;
+		$staticText1->textAlignment = 'R';
 		$pageHeader->addElement($staticText1);
 		
 		$rectangle = new Rectangle();
