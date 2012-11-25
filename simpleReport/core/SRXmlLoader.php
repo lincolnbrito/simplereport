@@ -1,5 +1,5 @@
 <?php
-require_once 'simpleReport/SimpleDesign.php';
+require_once 'simpleReport/core/SimpleDesign.php';
 require_once 'simpleReport/core/SRBand.php';
 require_once 'simpleReport/elements/StaticText.php';
 require_once 'simpleReport/elements/TextField.php';
@@ -39,11 +39,9 @@ class SRXmlLoader{
 		$bandTitle->addElement($staticText1);
 		
 		$image = new Image();
-		$image->imageExpression = 'C:\www\SimpleReport\chart.png';
-		$image->x = 200;
+		$image->imageExpression = 'C:\Users\anderson\Desktop\logo.png';
+		$image->x = 300;
 		$image->y = 0;
-		$image->width = 250;
-		$image->height = 100;
 		$bandTitle->addElement($image);
 		$this->sd->bandTitle = $bandTitle;
 		
