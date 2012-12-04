@@ -1,0 +1,187 @@
+---------------------------------------------------
+Introdução
+---------------------------------------------------
+
+Uma biblioteca para geração de relatórios em PDF com base em arquivos XML
+
+
+
+---------------------------------------------------
+Fundamentação Teórica
+---------------------------------------------------
+
+PDF
+
+Uma das principais vantagens dos arquivos PDF é eles serem multi-plataformas, ou 
+seja, podem ser visualizadas e impressos em praticamente todas as plataformas entre elas Windows, Mac OS e até mesmo em plataformas móveis e ficarão idênticos aos arquivos originais, caso que não ocorre com outros formatos, como por exemplo arquivos HTML. Por isso a importância de desenvolver relatórios utilizando esse formato em especifico.
+Criado pela Adobe Systems e aperfeiçoado durante os últimos 17 anos, o formato Portable Document Format (PDF) é o padrão global para a captura e a revisão de informação de mídia rica de quase todos os aplicativos ou sistemas operacionais e para o compartilhamento com quase qualquer pessoa em qualquer lugar. 
+Disponível em: <http://www.adobe.com/br/products/acrobat/adobepdf.html> Acesso em: 14 jun. 2012.
+
+
+PHP
+
+Significa “PHP: Hypertext Preprocessor", originalmente “Personal Home Page” é uma linguaguem interpretada de uso geral que é especialmente adequado para desenvolvimento WEB.
+Embora existam alguns extensões do PHP para desenvolvimento de aplicações desktop como por exemplo o PHP-GTK o seu principal foco é realmente para aplicações web que pode variar desde um simples blog até a maior rede social do mundo o Facebook.
+Com o avanço da linguguem o PHP foi ganhando credibilidade entre os desenvolvedores e as empresas, que começaram a investir mais em projetos feitos em PHP.  Principalmente com a sua versão 5 lançada em 2005 onde foi implementadas novas funcionalidades de orientação a objetos como por exemplo, visibilidade de menbros e metodos, tratamento de exceções e muitas outras.
+
+
+XML
+
+É um formato de arquivo para a criação de documentos com dados organizados de forma hierárquica. Disponível em <http://pt.wikipedia.org/wiki/Xml> Acesso em 14 jun 2012.
+É também um arquivo independete de hardware ou software e é de fácil leitura tanto para um humano quanto para um computador. Para mostrar o tamanho da flexibilidade dos arquivos XML vou demonstrar um exemplo prático para armazenarmos alguns pedidos de uma lancheria.
+<pedidos>
+<pedido nro=”1” cliente=”Anderson Souza” valorTotal=”16,50”>
+	<itens>
+		<item>
+		<cod>2235</cod>
+		<descricao> Refrigerante Coca-Cola 2LT </descricao>
+		<preco> 4,50 </preco>
+		</item>
+<item>
+		<cod>22</cod>
+		<descricao>Bauru de coração</descricao>
+		<preco>12,00</preco>
+		</item>
+	</itens>
+</pedido>
+<pedido nro=”2” cliente=”Marcia Souza” valorTotal=”18,50”>
+	<itens>
+		<item>
+		<cod>2235</cod>
+		<descricao> Refrigerante Fanta 600ml </descricao>
+		<preco> 3,50 </preco>
+		</item>
+<item>
+		<cod>22</cod>
+		<descricao>Bauru de filé</descricao>
+		<preco>15,00</preco>
+		</item>
+	</itens>
+</pedido>
+</pedidos>
+Como você viu esse arquivo é tal claro que qualquer pessoal consegue interpreta-lo e tão estruturado que qualquer programa simples de computador seria capaz de interpreta-lo tambem.
+O formato XML não é recomendado para aplicações que necessitam de grandes fluxos de dados. Pois ele se tornaria muito lento e ocuparia muito espaço desnecessario, para aplicações com grandes fluxos de dados existem uma solução chamada de SGBD que veremos a seguir.
+
+
+1.4  FPDF
+É uma classe escrita em PHP que permite gerar arquivos PDF.  Essa classe possui dezenas de funções para facilitar e agilizar no desenvolvimento do seu arquivo PDF e possui algumas vantagens tais como:
+
+Escolha da medida de formato de página da unidade, e as margens
+Cabeçalho e rodapé gestão
+Quebra de página automática
+Quebra de linha automática e justificação do texto
+Suporte de imagem (JPEG, PNG e GIF)
+Cores
+Links
+TrueType, Type1 e suporte à codificação
+
+Disponível em < http://www.fpdf.org/> Acesso em 14 jun 2012.
+
+
+1.5  Java
+É uma linguagem de programação e uma plataforma de computação lançada pela Sun Microsystems em 1995. Disponível em  <http://www.java.com/pt_BR/download/faq/whatis_java.xml> Acesso em 14 jun 2012.
+A linguaguem java é totalmente orientada a objetos e de fácil portabilidade pois independe de plataforma,  ou seja, funciona em Windows, Linux, Mac OS, dispositivos móveis e até televisores.
+Possui uma sintaxe semelhante a C/C++, possui também um sistema inteligente de desalocação de memoria automática muito conhecido como coletor de lixo.
+O Java deve toda sua portabilidade graças a sua maquina virtual que compila seus códigos para diversas plataformas.
+O compilador do java transforma o código fonte em código de maquina(bytecode), esse bytecode é lido e executado pelo JRE. Vale salientar que esse processo de compilação e execução pode ser bem demorado em relação a outras linguaguens como por exemplo o C.
+Para darmos incio ao desenvolvimento java precisamos do JDK(Java development Kit) que é um conjunto de classes do java + as classes do JRE.
+Mas se precisarmos apenas executar programas em java como sites e jogos precisamos apenas do JRE.
+
+
+1.6  JaperReports
+É uma biblioteca escrita em java, de código fonte open source, projetada para ajudar o desenvolvedor com a tarefa de criar relatórios para aplicações, tanto Desktop como Web, fornecendo uma API que facilita sua geração. [GONÇALVES, Edson 2009]
+Esse projeto nasce com o objetivo de otimizar o processo de criação de relatório gerando relatórios com base em arquivos XML bem estruturados, sendo no inicio, escrito manualmente pelos programadores.
+Com a necessidade de relatórios cada vez mais complexos começou a ficar inviavel a construção desses arquivos manualmente, pois tinha a preocupação de posicionar cada elemento um a um e de informar cada propriedade do elemento e outras preocupações, foi então que em 09 de outubro de 2002 o italiano Giulio Toffoli desenvolveu um programa para gerar esses arquivos XML de forma visual chamado de iReport.
+1.7  iReport
+É um programa Open Source, capaz de criar visualmente os mais complexos relatórios para aplicações java no formato da biblioteca JasperReports que é um arquivo XML com algumas particularidas.
+Através de uma interface gráfica intuitiva, o desenvolvedor é capaz de criar qualquer tipo de relatório de forma simples e rápida.
+Essa ferramente gera um arquivo com a extensao ‘jrxml’ que significa jasperReportXMLe um outro arquivo compilado em java com a extensao ‘jasper’ esse que é utilizado pelo JasperReport.
+Já na realidade do meu projeto, esse arquivo compilado vai ser descartado pois o meu projeto será responsavel por interpretar o arquivo XML gerado pela ferramente visual e montar o relatorio em PDF.
+A partir de 2005 a JasperSoft(empresa mantedora do jaspereports) adotou o iReport como ferramenta oficial para o desenvolvimento de relatorios jasperReport. [GONÇALVES, Edson 2009].
+
+1.8  Padrões de projeto
+Um Padrão de projeto nomeia, abstrai e identifica os aspectos chave de uma estrutura de projeto comun para torná-lo útil para a criação de um projeto orientado a objetos reutilizaveis. [GAMMA e ERICH, 2000]
+Fazer um sistema orientado a objetos pode ser um pouco complexo mas fazer um projeto utilizando padrões de projeto com o código totalmente reitulizavel é ainda mais complexo, por isso depende de uma equipe mais treinada e experiente, mas concerteza garante que o projeto estará muito bem estrutura e consolidade para mudanças no futuro isso tudo claro se você utilizar os padrões certos para os problemas certos.
+
+1.8.1 Factory Method
+
+Define uma interface para criar um objeto, mas deixa as subclasses decidirem qual classe a ser instanciada. [GAMMA e ERICH, 2000]
+Ele permite a instanciação de objetos em tempo de execução. Veja logo abaixo um exemplo da implementação desse padrão:
+
+<?php
+class Animal{
+    public static function factory($tipo){
+        if (include_once 'animal/'.$tipo.'.php'){
+            return new $tipo;
+        } else {
+            throw new Exception ('Animal não encontrado.');
+        }
+    }
+}
+
+// Criando um objeto da classe Cachorro
+$cachorro = Animal::factory('Cachorro');
+
+// Criando um objeto da classe Gato
+$gato = Animal::factory('Gato');
+?>
+
+Utilizar esse padrão permite que objetos sejam criados em tempo de execução.
+
+1.9 - SGBD
+É um Sistema de Gerenciamento de Banco de Dados, resumindo, é o conjunto de programas de computador  responsáveis pelo gerenciamento de uma base de dados.
+Hoje em dia existem varrios SGBD disponiveis, alguns comercializados e outros de graça mas ambos tem a mesma função.
+Vou citar dois SGBDs que estarão disponivel para ser utilizado no meu projeto:
+
+1.9.1  MySQL
+É um SGBD, que utiliza a linguagem SQL (Linguagem de Consulta Estruturada, do inglês Structured Query Language) como interface. 
+É atualmente um dos bancos de dados mais populares, com mais de 10 milhões de instalações pelo mundo. Disponível em  <http://pt.wikipedia.org/wiki/Mysql> Acesso em 14 jun 2012.
+
+1.9.2 PostgresSQL
+Postgres ou PostgreSQL é um projeto de Sistema Gerenciador de Banco de Dados open-source que foi iniciado em 1986, na Universidade de Berkeley, na Califórnia. O desenvolvimento do PostgreSQL é feito por um grupo de desenvolvedores, em sua maioria voluntários, espalhados por todo o mundo e que se comunicam via Internet. Disponível em  < http://pt.wikipedia.org/wiki/PostgreSQL> Acesso em 14 jun 2012.
+
+
+---------------------------------------------------
+Estudo de Soluções Existentes
+---------------------------------------------------
+
+
+2.1 PHP JasperXML
+É uma solução de código aberto de uma empresa da Malasya chamada de sim IT. Resumindo é  uma classe escrita em PHP para facilitar a criação de relatórios. Esses relatórios são gerados em PHP e XLS pois independem de plataforma para sua visualização e impressao.
+Segundo a própria empresa esse projeto encontrase parado, ou seja, sem desenvolvedores. Disponível em  < http://www.simit.com.my/?q=PHPJasperXML> Acesso em 14 jun 2012.
+
+
+3 Soluções alternativas
+
+3.1 Utilizar um servidor Java
+Solução muito utilizada para a geração de relatorios PDF em PHP utilizando o JasperReport é usar diretamente um servidor java para responder as requisições como mostra a Figura 1.
+O Principal problema dessa solução e o programador ficar limitado ao protocolo HTTP para fazer a comunicação entre as linguaguens. E obviamnete para quem tem um sistema em PHP ter que manter um servidor java simplismente para responder requisições para a montagem do relatório não é muito agradavél.
+Mas a grande vantagem dessa solução é poder usar 100% dos recursos disponiveis na ferramente iReport.
+Vale salientar que não é necessario ter 4 servidores físicos como mostrado na Figura 1, essa solução pode ser implementada com apenas um servidor físico, e dois servidores web rodando, por exemplo um para trabalhar com PHP (HTTPD LITE) e outras para trabalhar com o java (TOMCAT) ambos respondendo em portas diferentes, Nesse formato basta o servidor PHP fazer uma requisição para o servidor Java e obter a resposta.
+
+
+---------------------------------------------------
+Análise e Desenvolvimento
+---------------------------------------------------
+
+
+---------------------------------------------------
+Resultados Obtidos
+---------------------------------------------------
+
+
+---------------------------------------------------
+Conclusão
+---------------------------------------------------
+
+
+---------------------------------------------------
+Referencia
+---------------------------------------------------
+
+GAMMA,  ERICH, Padrões de projetos, soluções reutilizáveis de software orientado a objetos / Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides; trad. Luiz A. Meirelles Salgado. – Porto Alegre:Bookman, 2000.
+
+GONÇALVES, Desenvolvendo Relatórios Profisionais com iReport para Netbeans IDE, Rio de Janeiro: Editora Ciência Moderna Ltda, 2009.
+
+
+

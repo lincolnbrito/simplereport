@@ -23,6 +23,8 @@ class SRFillManager{
 		$this->pdf = new FPDF('p', 'pt', 'A4');
 		$this->pdf->SetAutoPageBreak(false);
 		
+		$this->addNewPage();
+		
 		if(empty($this->report->queryText))
 			$this->rideReport();
 		else
@@ -31,6 +33,14 @@ class SRFillManager{
 		return new SimplePrint($this->pdf);
 	}
 
+	private function rideReport(){
+		$this->setBand($this->report->bandTitle);
+		$this->setBand($this->report->bandPageHeader);
+		$this->setBand($this->report->bandColumnHeader);
+		$this->setBand($this->report->bandSummary);
+		$this->setBandPageFooter($this->report->bandLastPageFooter);
+	}
+	
 	private function rideReportData(){
 		require_once 'simpleReport/config.php';
 		
@@ -43,7 +53,7 @@ class SRFillManager{
 		$jaLeuColumnHeaderNessaPagina = false;
 		$jaLeuDetail = false;
 		
-		$this->addNewPage();
+		
 		
 		while($r = mysql_fetch_assoc($consulta)){
 			
@@ -66,13 +76,15 @@ class SRFillManager{
 			$free = $this->findFreeSpace();
 			$this->setBandDetail($this->report->bandDetail, $r);
 						
-			if(($free - $this->report->bandDetail->height) <= $this->report->bandDetail->height){
-
-				$this->setBandPageFooter($this->report->bandPageFooter);
-				
-				$this->addNewPage();
-				$jaLeuPageHeaderNessaPagina = false;
-				$jaLeuColumnHeaderNessaPagina = false;
+			if(isset($this->report->bandDetail->height)){
+				if(($free - $this->report->bandDetail->height) <= $this->report->bandDetail->height){
+	
+					$this->setBandPageFooter($this->report->bandPageFooter);
+					
+					$this->addNewPage();
+					$jaLeuPageHeaderNessaPagina = false;
+					$jaLeuColumnHeaderNessaPagina = false;
+				}
 			}
 			
 		}
