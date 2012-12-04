@@ -12,7 +12,7 @@ require_once 'simpleReport/core/SRColor.php';
 
 $sd = new SimpleDesign();
 $sd->name = 'Report';
-$sd->queryText = 'select * from alunos';
+$sd->queryText = 'select * from alunos limit 35';
 
 $sd->width = 595;
 $sd->heigth = 842;
@@ -34,14 +34,14 @@ $image->height = 31;
 $bandTitle->addElement($image);
 
 $staticText1 = new StaticText();
-$staticText1->text = "Tecnologo em Analise e Desenvolvimento de Sistema";
+$staticText1->text = "Testando";
 $staticText1->x = 0;
 $staticText1->y = 31;
 $staticText1->width = 555;
 $staticText1->height = 38;
 $staticText1->isBold = true;
 $staticText1->isItalic = true;
-$staticText1->textAlignment = 'C';
+$staticText1->textAlignment = 'R';
 $staticText1->fontSize = 20;
 $bandTitle->addElement($staticText1);
 
