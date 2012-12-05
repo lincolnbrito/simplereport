@@ -1,31 +1,61 @@
+[[importante: sempre usa a terceira pessoa, exemplo: ... falaremos sobre os sistemas existentes ..., ... quando acessamos um ....]]
+
+[[cara, de repente, usar HTML para este texto]]
+
+[[para falar da introdução, pensa que estás explicando para alguém, que não é leigo no assunto de desenvolvimento, mas que também não sabe do que se trata teu trabalho]]
+
+[[é importante que comeces a escrever, mesmo que não fique pereito, devaneia mesmo]]
+
 ---------------------------------------------------
-Introdução
+h1. Introdução
 ---------------------------------------------------
+
+[[fala sobre sistemas web, aplicação como serviços (saas), aplicações, funcionalidades, e, então, relatórios, papel dos relatórios, etc]]
+
+[[fala brevemente, um parágrafo, o que é este trabalho]]
 
 Uma biblioteca para geração de relatórios em PDF com base em arquivos XML
 
+h2. Motivação
 
+[[uma explicação de o que te motivou a fazer este trabalho (dois parágrafos +-), a lacuna que observaste]]
+
+h2. Objetivo
+
+[[uma explicação do objetivo, bem claro, do que será feito (dois parágrafos +-)]]
+
+h2. Justificativa
+
+[[por que este trabalho será útil e para quem (dois parágrafos +-)]]
+
+h2. Organização do trabalho
+
+[[aqui fala do geral e depois começa a fazer tópicos dos capítulos e uma explicação de poucas linhas de o que fala cada um]]
 
 ---------------------------------------------------
-Fundamentação Teórica
+h1. Fundamentação Teórica
 ---------------------------------------------------
 
-PDF
+[[antes dos tópicos fala sobre o que tecnologias, ferramentas, princípios, etc, sobre os quais teu trabalho está apoiado, usa uns dois parágrafos +- e podes falar do que estás substituindo: Java, Tomcat, Jetty, sei lá]]
+
+h2. Software as a Service
+
+h2. Relatório
+
+h2. PDF [[prefere Portable Document Format]]
 
 Uma das principais vantagens dos arquivos PDF é eles serem multi-plataformas, ou 
 seja, podem ser visualizadas e impressos em praticamente todas as plataformas entre elas Windows, Mac OS e até mesmo em plataformas móveis e ficarão idênticos aos arquivos originais, caso que não ocorre com outros formatos, como por exemplo arquivos HTML. Por isso a importância de desenvolver relatórios utilizando esse formato em especifico.
 Criado pela Adobe Systems e aperfeiçoado durante os últimos 17 anos, o formato Portable Document Format (PDF) é o padrão global para a captura e a revisão de informação de mídia rica de quase todos os aplicativos ou sistemas operacionais e para o compartilhamento com quase qualquer pessoa em qualquer lugar. 
 Disponível em: <http://www.adobe.com/br/products/acrobat/adobepdf.html> Acesso em: 14 jun. 2012.
 
-
-PHP
+h2. PHP
 
 Significa “PHP: Hypertext Preprocessor", originalmente “Personal Home Page” é uma linguaguem interpretada de uso geral que é especialmente adequado para desenvolvimento WEB.
 Embora existam alguns extensões do PHP para desenvolvimento de aplicações desktop como por exemplo o PHP-GTK o seu principal foco é realmente para aplicações web que pode variar desde um simples blog até a maior rede social do mundo o Facebook.
 Com o avanço da linguguem o PHP foi ganhando credibilidade entre os desenvolvedores e as empresas, que começaram a investir mais em projetos feitos em PHP.  Principalmente com a sua versão 5 lançada em 2005 onde foi implementadas novas funcionalidades de orientação a objetos como por exemplo, visibilidade de menbros e metodos, tratamento de exceções e muitas outras.
 
-
-XML
+h2. XML
 
 É um formato de arquivo para a criação de documentos com dados organizados de forma hierárquica. Disponível em <http://pt.wikipedia.org/wiki/Xml> Acesso em 14 jun 2012.
 É também um arquivo independete de hardware ou software e é de fácil leitura tanto para um humano quanto para um computador. Para mostrar o tamanho da flexibilidade dos arquivos XML vou demonstrar um exemplo prático para armazenarmos alguns pedidos de uma lancheria.
@@ -63,7 +93,8 @@ Como você viu esse arquivo é tal claro que qualquer pessoal consegue interpreta-
 O formato XML não é recomendado para aplicações que necessitam de grandes fluxos de dados. Pois ele se tornaria muito lento e ocuparia muito espaço desnecessario, para aplicações com grandes fluxos de dados existem uma solução chamada de SGBD que veremos a seguir.
 
 
-1.4  FPDF
+h2. FPDF
+
 É uma classe escrita em PHP que permite gerar arquivos PDF.  Essa classe possui dezenas de funções para facilitar e agilizar no desenvolvimento do seu arquivo PDF e possui algumas vantagens tais como:
 
 Escolha da medida de formato de página da unidade, e as margens
@@ -78,7 +109,7 @@ TrueType, Type1 e suporte à codificação
 Disponível em < http://www.fpdf.org/> Acesso em 14 jun 2012.
 
 
-1.5  Java
+h2. Java
 É uma linguagem de programação e uma plataforma de computação lançada pela Sun Microsystems em 1995. Disponível em  <http://www.java.com/pt_BR/download/faq/whatis_java.xml> Acesso em 14 jun 2012.
 A linguaguem java é totalmente orientada a objetos e de fácil portabilidade pois independe de plataforma,  ou seja, funciona em Windows, Linux, Mac OS, dispositivos móveis e até televisores.
 Possui uma sintaxe semelhante a C/C++, possui também um sistema inteligente de desalocação de memoria automática muito conhecido como coletor de lixo.
@@ -88,7 +119,7 @@ Para darmos incio ao desenvolvimento java precisamos do JDK(Java development Kit
 Mas se precisarmos apenas executar programas em java como sites e jogos precisamos apenas do JRE.
 
 
-1.6  JaperReports
+h2. JaperReports
 É uma biblioteca escrita em java, de código fonte open source, projetada para ajudar o desenvolvedor com a tarefa de criar relatórios para aplicações, tanto Desktop como Web, fornecendo uma API que facilita sua geração. [GONÇALVES, Edson 2009]
 Esse projeto nasce com o objetivo de otimizar o processo de criação de relatório gerando relatórios com base em arquivos XML bem estruturados, sendo no inicio, escrito manualmente pelos programadores.
 Com a necessidade de relatórios cada vez mais complexos começou a ficar inviavel a construção desses arquivos manualmente, pois tinha a preocupação de posicionar cada elemento um a um e de informar cada propriedade do elemento e outras preocupações, foi então que em 09 de outubro de 2002 o italiano Giulio Toffoli desenvolveu um programa para gerar esses arquivos XML de forma visual chamado de iReport.
@@ -99,7 +130,10 @@ Essa ferramente gera um arquivo com a extensao ‘jrxml’ que significa jasperRepor
 Já na realidade do meu projeto, esse arquivo compilado vai ser descartado pois o meu projeto será responsavel por interpretar o arquivo XML gerado pela ferramente visual e montar o relatorio em PDF.
 A partir de 2005 a JasperSoft(empresa mantedora do jaspereports) adotou o iReport como ferramenta oficial para o desenvolvimento de relatorios jasperReport. [GONÇALVES, Edson 2009].
 
-1.8  Padrões de projeto
+h2. Convention Over Configuration
+
+h2. Design Patterns
+
 Um Padrão de projeto nomeia, abstrai e identifica os aspectos chave de uma estrutura de projeto comun para torná-lo útil para a criação de um projeto orientado a objetos reutilizaveis. [GAMMA e ERICH, 2000]
 Fazer um sistema orientado a objetos pode ser um pouco complexo mas fazer um projeto utilizando padrões de projeto com o código totalmente reitulizavel é ainda mais complexo, por isso depende de uma equipe mais treinada e experiente, mas concerteza garante que o projeto estará muito bem estrutura e consolidade para mudanças no futuro isso tudo claro se você utilizar os padrões certos para os problemas certos.
 
@@ -128,7 +162,7 @@ $gato = Animal::factory('Gato');
 
 Utilizar esse padrão permite que objetos sejam criados em tempo de execução.
 
-1.9 - SGBD
+1.9 - SGBD [[só MySQL ou PostgreSQL, não precisa explicar o que é um SGBD]]
 É um Sistema de Gerenciamento de Banco de Dados, resumindo, é o conjunto de programas de computador  responsáveis pelo gerenciamento de uma base de dados.
 Hoje em dia existem varrios SGBD disponiveis, alguns comercializados e outros de graça mas ambos tem a mesma função.
 Vou citar dois SGBDs que estarão disponivel para ser utilizado no meu projeto:
@@ -142,9 +176,10 @@ Postgres ou PostgreSQL é um projeto de Sistema Gerenciador de Banco de Dados ope
 
 
 ---------------------------------------------------
-Estudo de Soluções Existentes
+h1. Estudo de Soluções Existentes
 ---------------------------------------------------
 
+[[antes dos tópicos fala sobre o capítulo, que irás falar das soluções existentes, a forma como é feito, etc]]
 
 2.1 PHP JasperXML
 É uma solução de código aberto de uma empresa da Malasya chamada de sim IT. Resumindo é  uma classe escrita em PHP para facilitar a criação de relatórios. Esses relatórios são gerados em PHP e XLS pois independem de plataforma para sua visualização e impressao.
@@ -161,27 +196,47 @@ Vale salientar que não é necessario ter 4 servidores físicos como mostrado na Fi
 
 
 ---------------------------------------------------
-Análise e Desenvolvimento
+h1. Análise e Desenvolvimento
 ---------------------------------------------------
 
+[[primeiro falar sobre o processo de descoberta, deciões de projeto, etc, e como foi feito o desenvolvimento]]
+
+h2. Análise
+
+[[aqui entra as classes descobertas, referências a digramas de classes, etc]]
+
+[[aqui pode ficar também a escolha do licenciamento (GPL), etc]]
+
+h2. Implementação
+
+[[como implementaste, ferramentas, repositórios]]
+
+[[padrão utilizado, como estender, etc]]
+
+
 
 ---------------------------------------------------
-Resultados Obtidos
+h1. Resultados
 ---------------------------------------------------
+
+[[funciona? se sim, como? alguém utilizou? quem? gostou? mostrou-se viável?
+está completo? falta o quê?]]
+
+h2. Trabalhos futuros
 
 
 ---------------------------------------------------
 Conclusão
 ---------------------------------------------------
 
+[[teu conceito sobre o projeto, prós, contras, o que deu certo, o que não deu,
+vai pra frente, não vai]]
 
 ---------------------------------------------------
-Referencia
+Referências
 ---------------------------------------------------
 
 GAMMA,  ERICH, Padrões de projetos, soluções reutilizáveis de software orientado a objetos / Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides; trad. Luiz A. Meirelles Salgado. – Porto Alegre:Bookman, 2000.
 
-GONÇALVES, Desenvolvendo Relatórios Profisionais com iReport para Netbeans IDE, Rio de Janeiro: Editora Ciência Moderna Ltda, 2009.
-
-
-
+[[usar este formato, título em negrito]]
+GONÇALVES, Edson. <strong>Desenvolvendo Relatórios Profisionais com iReport para Netbeans IDE</strong>. Rio de Janeiro: Editora Ciência Moderna Ltda, 2009.
