@@ -1,4 +1,18 @@
 <?php
+
+/**
+ * Responsabilidade dessa classe 
+ * 
+ * @author Anderson Souza
+ * @since 04/12/2012
+ * @version 0.1
+ * @copyright GNU GPL v3
+ * @access public
+ * @package core
+ * 
+ * */
+
+
 require_once 'simpleReport/core/fpdf.php';
 require_once 'simpleReport/core/SimplePrint.php';
 
