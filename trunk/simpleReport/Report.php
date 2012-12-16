@@ -10,10 +10,15 @@ final class Report{
 	private $print;
 	
 	public function __construct($sourceFileName, $dados = null){
-		$load = new SRXmlLoader();
-		$this->design = $load->load($sourceFileName); 
-		$this->report = SRCompileManager::compile($this->design);
-		$this->fill($dados);
+		
+
+			$load = new SRXmlLoader();
+			$this->design = $load->load($sourceFileName);
+			$this->report = SRCompileManager::compile($this->design);
+			$this->fill($dados);
+			
+		
+		
 	} 
 	
 	public function fill($dados = null){
@@ -30,8 +35,8 @@ final class Report{
 		$this->print->export();
 	}
 	
-	public static function from($file){
-		return new Report($file);
+	public static function from($file, $dados = null){
+		return new Report($file, $dados);
 	}
 	
 }
