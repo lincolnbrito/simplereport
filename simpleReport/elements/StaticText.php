@@ -12,25 +12,12 @@ class StaticText extends SRTextElements{
 	}
 	
 	public function fill($xml){
-		
-		echo 'NAO ESTA CHEGANDO O VALOR AQUI, POIS A CONVERSAO DE XML PARA ARRAY
-		ESTA DESTRUINDO TUDO....<BR />';
-		
-		var_dump($xml['text']);
-		exit;
-		
-		/*
-		echo '<pre>';
-		var_dump($xml['reportElement']);
-		var_dump($xml['textElement']);
-		var_dump($xml['text']);
-		exit;
-		*/
-		$this->text = "Static text simples";
-		$this->x = 0;
-		$this->y = 150;
-		$this->width = 555;
-		$this->height = 38;
+				
+		$this->text = $xml['text']['#cdata-section'];
+		$this->x = $xml['reportElement']['x'];
+		$this->y = $xml['reportElement']['y'];
+		$this->width = $xml['reportElement']['width'];
+		$this->height = $xml['reportElement']['height'];
 		
 	}
 	
