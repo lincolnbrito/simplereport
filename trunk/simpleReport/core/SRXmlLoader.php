@@ -14,7 +14,7 @@ require_once 'simpleReport/elements/TextField.php';
 require_once 'simpleReport/elements/Image.php';
 require_once 'simpleReport/elements/Rectangle.php';
 require_once 'simpleReport/core/SRColor.php';
-require_once 'simpleReport/core/SRXMLToArray.php';
+require_once 'simpleReport/core/XML2Array.php';
 
 class SRXmlLoader{
 
@@ -23,19 +23,22 @@ class SRXmlLoader{
 	
 	private function fillBand($bandName, $bandXML){
 				
-		$band = new SRBand();
-		$band->height = $bandXML['band']['@attributes']['height'];
+		if(!isset($bandXML['height']))
+			return;
 		
-		foreach ($bandXML['band'] as $c => $v){
+		$band = new SRBand();
+		$band->height = $bandXML['height'];
+		
+		foreach ($bandXML as $c => $v){
 			if(file_exists('C:/www/SimpleReport/simpleReport/elements/'.$c.'.php')){
 				$e = new $c();
 				$e->fill($v);
 				$band->addElement($e);
-				$a = 'band'.ucfirst($bandName);
-				$this->sd->$a = $band;
 			}
 		}
 		
+		$a = 'band'.ucfirst($bandName);
+		$this->sd->$a = $band;
 	}
 	
 	public function load($sourceFileName){
@@ -45,23 +48,27 @@ class SRXmlLoader{
 			exit;
 		}
 		
-		$xmlArray = json_decode(json_encode((array) simplexml_load_string(file_get_contents($sourceFileName))),1);
-				
+		$xmlArray = XML2Array::convert(file_get_contents($sourceFileName));
+			
 		$this->sd = new SimpleDesign();
-		$this->sd->name = $xmlArray['@attributes']['name'];
-		$this->sd->width = $xmlArray['@attributes']['pageWidth'];
-		$this->sd->heigth = $xmlArray['@attributes']['pageHeight'];
-		$this->sd->topMargin = $xmlArray['@attributes']['topMargin'];
-		$this->sd->rightMargin = $xmlArray['@attributes']['rightMargin'];
-		$this->sd->leftMargin = $xmlArray['@attributes']['leftMargin'];
-		$this->sd->bottomMargin = $xmlArray['@attributes']['bottomMargin'];
-		
+		$this->sd->name = $xmlArray['name'];
+		$this->sd->width = $xmlArray['pageWidth'];
+		$this->sd->heigth = $xmlArray['pageHeight'];
+		$this->sd->topMargin = $xmlArray['topMargin'];
+		$this->sd->rightMargin = $xmlArray['rightMargin'];
+		$this->sd->leftMargin = $xmlArray['leftMargin'];
+		$this->sd->bottomMargin = $xmlArray['bottomMargin'];
+
 		foreach($xmlArray as $c => $v){
-			if(@$xmlArray[$c]['band']['@attributes']['height'] > 0){
-				$this->fillBand($c, $v);
+			switch ($c){
+				case 'title':
+				case 'pageHeader':
+				case 'columnHeader':
+					$this->fillBand($c, $v['band']);
+					break;
 			}
 		}
-		
+				
 		/*
 		$this->xml = simplexml_load_file($sourceFileName);
 		$this->sd = new SimpleDesign();
@@ -130,6 +137,7 @@ class SRXmlLoader{
 		
 		$this->sd->bandTitle = $bandTitle;
 		*/
+		
 		return $this->sd;
 		
 	}
