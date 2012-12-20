@@ -11,13 +11,7 @@ class SRElements implements ISRElements{
 	public $backcolor;
 	public $paintBackground;
 	
-	public function draw(&$pdf){
-		
-		
-			
-	}
-	
-	
+	public function fill($xml){}
+	public function draw(&$pdf){}
 }
-
 ?>
