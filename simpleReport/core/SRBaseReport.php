@@ -29,7 +29,7 @@ class SRBaseReport{
 	public $bandBackground;
 	public $bandNoData;
 	
-	
+	public $parameters;
 }
 
 ?>

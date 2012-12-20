@@ -1,18 +1,4 @@
 <?php
-
-/**
- * Responsabilidade dessa classe 
- * 
- * @author Anderson Souza
- * @since 04/12/2012
- * @version 0.1
- * @copyright GNU GPL v3
- * @access public
- * @package core
- * 
- * */
-
-
 require_once 'simpleReport/core/fpdf.php';
 require_once 'simpleReport/core/SimplePrint.php';
 
@@ -51,8 +37,11 @@ class SRFillManager{
 		$this->setBand($this->report->bandTitle);
 		$this->setBand($this->report->bandPageHeader);
 		$this->setBand($this->report->bandColumnHeader);
+		$this->setBand($this->report->bandColumnFooter);
+		$this->setBand($this->report->bandPageFooter);
+		$this->setBand($this->report->bandLastPageFooter);
 		$this->setBand($this->report->bandSummary);
-		$this->setBandPageFooter($this->report->bandLastPageFooter);
+		$this->setBand($this->report->bandBackground);
 	}
 	
 	private function rideReportData(){
@@ -66,8 +55,6 @@ class SRFillManager{
 		$jaLeuPageHeaderNessaPagina = false;
 		$jaLeuColumnHeaderNessaPagina = false;
 		$jaLeuDetail = false;
-		
-		
 		
 		while($r = mysql_fetch_assoc($consulta)){
 			
@@ -92,9 +79,7 @@ class SRFillManager{
 						
 			if(isset($this->report->bandDetail->height)){
 				if(($free - $this->report->bandDetail->height) <= $this->report->bandDetail->height){
-	
 					$this->setBandPageFooter($this->report->bandPageFooter);
-					
 					$this->addNewPage();
 					$jaLeuPageHeaderNessaPagina = false;
 					$jaLeuColumnHeaderNessaPagina = false;
@@ -102,7 +87,6 @@ class SRFillManager{
 			}
 			
 		}
-		
 		$this->setBand($this->report->bandSummary);
 		$this->setBandPageFooter($this->report->bandLastPageFooter);
 	}
