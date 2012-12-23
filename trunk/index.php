@@ -31,8 +31,7 @@ $link_identifier = mysql_connect('localhost', 'root', 'root');
 $db_selected = mysql_select_db('tads', $link_identifier);
 $result = mysql_query('select * from alunos', $link_identifier);
 
-Report::from('report.jrxml', SRDataSource::getInstance('MySQL', $result))->outPut();
-
+Report::from('report2.jrxml', SRDataSource::getInstance('MySQL', $result))->outPut();
 
 
 /*

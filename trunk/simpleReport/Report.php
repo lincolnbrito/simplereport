@@ -30,8 +30,13 @@ final class Report{
 
 	public function __construct($sourceFileName, $dados = null){
 		$load = new SRXmlLoader();
-		$this->design = $load->load($sourceFileName);
-		$this->report = SRCompileManager::compile($this->design);
+		$fileName = substr($sourceFileName, 0, -6);
+		if(file_exists($fileName.'.sr')){
+			$this->report = SRInstanceManager::getInstance(file_get_contents($fileName.'.sr'));
+		}else{
+			$this->design = $load->load($sourceFileName);
+			$this->report = SRCompileManager::compile($this->design, $fileName);
+		}
 		$this->fill($dados);
 	}
 
