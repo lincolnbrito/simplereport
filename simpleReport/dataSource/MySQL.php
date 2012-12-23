@@ -17,22 +17,18 @@ Licença Pública Geral GNU para maiores detalhes.
 Você encontrará uma cópia da Licença Pública Geral GNU no diretório
 license/COPYING.txt, se não, entre em <http://www.gnu.org/licenses/>
 */
+require_once 'simpleReport/core/ISRIterator.php';
 
-class SRBand{
-
-	public $height = 0;
-	private $elements = array();
-
-	public function isEmpty(){
-		return empty($this->elements);	
-	}
+class MySQL implements ISRIterator{
 	
-	public function addElement(SRElements $elements){
-		$this->elements[] = $elements;
+	var $result;
+
+	function __construct($result){
+		$this->result = $result;
 	}
 
-	public function getElements(){
-		return $this->elements;	
+	function next(){
+		return mysql_fetch_array($this->result, MYSQL_ASSOC);
 	}
 	
 }

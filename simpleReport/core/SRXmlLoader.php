@@ -1,10 +1,21 @@
 <?php
-/* 
-* Licensed to version General Public License (GNU) 3.0
-* You will only be able to use this file if you agree to this license.
-* See details on this license in http://www.gnu.org/licenses/gpl-3.0.txt
-* 
-* 
+/*
+Copyright 2013 SimpleReport
+
+Este arquivo é parte do SimpleReport
+
+SimpleReport é uma biblioteca livre; você pode redistribui-lo e/ou
+modifica-lo dentro dos termos da Licença Pública Geral GNU como
+publicada pela Fundação do Software Livre (FSF); na versão 3 da
+Licença, ou qualquer outra versão.
+
+Este programa é distribuido na esperança que possa ser util,
+mas SEM NENHUMA GARANTIA; sem uma garantia implicita de ADEQUAÇÂO a qualquer
+MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
+Licença Pública Geral GNU para maiores detalhes.
+
+Você encontrará uma cópia da Licença Pública Geral GNU no diretório
+license/COPYING.txt, se não, entre em <http://www.gnu.org/licenses/>
 */
 
 require_once 'simpleReport/core/SimpleDesign.php';
@@ -53,8 +64,6 @@ class SRXmlLoader{
 		$xmlArray = XML2Array::convert(file_get_contents($sourceFileName));
 
 		
-		
-		
 		$this->sd = new SimpleDesign();
 		$this->sd->name = $xmlArray['name'];
 		$this->sd->width = $xmlArray['pageWidth'];
@@ -65,12 +74,12 @@ class SRXmlLoader{
 		$this->sd->bottomMargin = $xmlArray['bottomMargin'];
 
 		foreach($xmlArray as $c => $v){
+			
 			switch ($c){
 				
 				// PARAMETERS
 				case 'parameter':
-					// $v['class'] -> java.lang.Boolean
-					
+					// $v['class'] -> java.lang.Boolean					
 					if(isset($v['defaultValueExpression']['#cdata-section'])){
 						SRParameter::set($v['name'], $v['defaultValueExpression']['#cdata-section']==='true');
 					}
@@ -84,7 +93,9 @@ class SRXmlLoader{
 				case 'detail':
 				case 'columnFooter':
 				case 'pageFooter':
+				case 'lastPageFooter':
 				case 'summary':
+					
 					$this->fillBand($c, $v['band']);
 					break;
 				

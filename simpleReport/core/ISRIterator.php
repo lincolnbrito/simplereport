@@ -17,24 +17,7 @@ Licença Pública Geral GNU para maiores detalhes.
 Você encontrará uma cópia da Licença Pública Geral GNU no diretório
 license/COPYING.txt, se não, entre em <http://www.gnu.org/licenses/>
 */
-
-class SRBand{
-
-	public $height = 0;
-	private $elements = array();
-
-	public function isEmpty(){
-		return empty($this->elements);	
-	}
-	
-	public function addElement(SRElements $elements){
-		$this->elements[] = $elements;
-	}
-
-	public function getElements(){
-		return $this->elements;	
-	}
-	
+interface ISRIterator{
+	public function next();	
 }
-
 ?>
