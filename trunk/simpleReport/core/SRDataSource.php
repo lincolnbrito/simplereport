@@ -18,23 +18,18 @@ Você encontrará uma cópia da Licença Pública Geral GNU no diretório
 license/COPYING.txt, se não, entre em <http://www.gnu.org/licenses/>
 */
 
-class SRBand{
 
-	public $height = 0;
-	private $elements = array();
+class SRDataSource{
 
-	public function isEmpty(){
-		return empty($this->elements);	
-	}
-	
-	public function addElement(SRElements $elements){
-		$this->elements[] = $elements;
-	}
-
-	public function getElements(){
-		return $this->elements;	
+	public static function getInstance($class, $result){
+		$file = 'simpleReport/dataSource/'.$class.'.php';
+		
+		if(!file_exists($file))
+			die('Arquivo não encontrado: '.$file);
+		
+		require_once $file;
+		return new $class($result);
 	}
 	
 }
-
 ?>

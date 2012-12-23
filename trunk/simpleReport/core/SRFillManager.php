@@ -1,4 +1,22 @@
 <?php
+/*
+ Copyright 2013 SimpleReport
+
+Este arquivo é parte do SimpleReport
+
+SimpleReport é uma biblioteca livre; você pode redistribui-lo e/ou
+modifica-lo dentro dos termos da Licença Pública Geral GNU como
+publicada pela Fundação do Software Livre (FSF); na versão 3 da
+Licença, ou qualquer outra versão.
+
+Este programa é distribuido na esperança que possa ser util,
+mas SEM NENHUMA GARANTIA; sem uma garantia implicita de ADEQUAÇÂO a qualquer
+MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
+Licença Pública Geral GNU para maiores detalhes.
+
+Você encontrará uma cópia da Licença Pública Geral GNU no diretório
+license/COPYING.txt, se não, entre em <http://www.gnu.org/licenses/>
+*/
 require_once 'simpleReport/core/fpdf.php';
 require_once 'simpleReport/core/SimplePrint.php';
 
@@ -18,6 +36,13 @@ class SRFillManager{
 		
 		if($numP >1)
 			$this->dados = func_get_arg(1);
+
+		/*
+		while($r = $this->dados->next()){
+			echo '<pre>'; print_r($r); echo '</pre>';
+		}
+		exit;
+		*/
 		
 		$this->sizePage = $this->report->heigth;
 		$this->pdf = new FPDF('p', 'pt', 'A4');
@@ -25,10 +50,11 @@ class SRFillManager{
 		
 		$this->addNewPage();
 		
-		if(empty($this->report->queryText))
+		if(empty($this->dados)){
 			$this->rideReport();
-		else
+		}else{
 			$this->rideReportData();
+		}
 		
 		return new SimplePrint($this->pdf);
 	}
@@ -45,18 +71,21 @@ class SRFillManager{
 	}
 	
 	private function rideReportData(){
-		require_once 'simpleReport/config.php';
 		
+		/*
+		require_once 'simpleReport/config.php';
 		$conexao = mysql_connect(SERVER, USER, PASSWORD);
 		$db_selected = mysql_select_db(DATABASE, $conexao);
 		$consulta = mysql_query($this->report->queryText, $conexao);
+		*/
 		
 		$jaLeuTitleNessaPagina = false;
 		$jaLeuPageHeaderNessaPagina = false;
 		$jaLeuColumnHeaderNessaPagina = false;
+		$jaPodeLerColumnFooter = false;
 		$jaLeuDetail = false;
 		
-		while($r = mysql_fetch_assoc($consulta)){
+		while($r = $this->dados->next()){
 			
 			if($this->isFirstPage && !$jaLeuTitleNessaPagina){
 				$this->setBand($this->report->bandTitle);
@@ -79,14 +108,17 @@ class SRFillManager{
 						
 			if(isset($this->report->bandDetail->height)){
 				if(($free - $this->report->bandDetail->height) <= $this->report->bandDetail->height){
+					$this->setBand($this->report->bandColumnFooter);
 					$this->setBandPageFooter($this->report->bandPageFooter);
 					$this->addNewPage();
 					$jaLeuPageHeaderNessaPagina = false;
 					$jaLeuColumnHeaderNessaPagina = false;
+					
 				}
 			}
-			
+
 		}
+		
 		$this->setBand($this->report->bandSummary);
 		$this->setBandPageFooter($this->report->bandLastPageFooter);
 	}
@@ -123,11 +155,13 @@ class SRFillManager{
 	}
 	
 	private function fillBandDetail(SRBand $band, $record){
+		
 		if($band->isEmpty()){
 			$this->pageSizeFilled += $band->height;
 			return true;
 		}
 		foreach ($band->getElements() as $element){
+			
 			$c = clone $element;
 			$c->x = $element->x + $this->report->leftMargin;
 			$c->y = $element->y + $this->report->topMargin+$this->pageSizeFilled;
