@@ -34,6 +34,11 @@ class SRXmlLoader{
 	private $sd = null;
 	private $xml = null;
 
+	
+	
+	
+	
+	
 	private function fillBand($bandName, $bandXML){
 				
 		if(!isset($bandXML['height']))
@@ -56,6 +61,14 @@ class SRXmlLoader{
 	
 	public function load($sourceFileName){
 
+		/*
+		$dom = new DOMDocument();
+		$ret = array();
+		if(!@$dom->loadXML(utf8_encode($source)))
+			return array();
+		return XML2Array::getArray($dom->documentElement);
+		*/
+		
 		if(!is_file($sourceFileName)){
 			echo 'Arquivo nao encontrado';
 			exit;
@@ -63,6 +76,7 @@ class SRXmlLoader{
 		
 		$xmlArray = XML2Array::convert(file_get_contents($sourceFileName));
 
+		
 		$this->sd = new SimpleDesign();
 		$this->sd->name = $xmlArray['name'];
 		$this->sd->width = $xmlArray['pageWidth'];
@@ -84,6 +98,7 @@ class SRXmlLoader{
 					}
 					break;
 
+					
 				// BANDS
 				case 'title':
 				case 'pageHeader':
@@ -92,12 +107,15 @@ class SRXmlLoader{
 				case 'columnFooter':
 				case 'pageFooter':
 				case 'lastPageFooter':
-				case 'summary':					
+				case 'summary':
+					
 					$this->fillBand($c, $v['band']);
 					break;
+				
 			}
 		}
-			
+				
+//		echo '<pre>'; print_r($this->sd->parameters); echo '</pre>';exit;
 		return $this->sd;
 	}
 }

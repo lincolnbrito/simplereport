@@ -25,7 +25,7 @@ abstract class SRCompileManager{
 	 * @param SimpleDesign
 	 * @return SimpleReport
 	 */
-	public static function compile(SimpleDesign $sd){
+	public static function compile(SimpleDesign $sd, $sourceFileName){
 		
 		$serializedFile = serialize($sd);
 		
@@ -34,7 +34,7 @@ abstract class SRCompileManager{
 		$serializedFile = implode(':', $serializedFile);
 		
 		// Cria o arquivo serializado
-		file_put_contents($sd->name.'.sr', $serializedFile);
+		file_put_contents($sourceFileName.'.sr', $serializedFile);
 		
 		return SRInstanceManager::getInstance($serializedFile);
 	}  
