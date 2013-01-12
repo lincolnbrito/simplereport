@@ -24,8 +24,44 @@ class TextField extends SRTextElements{
 
 	public $textFieldExpression;
 	
-	public function fill($xml){
+	public function fill(SimpleXMLElement $xml){
 	
+		foreach ($xml as $elementName => $element){
+		
+			switch($elementName){
+				case 'reportElement':
+					$this->x = (String)$element['x'];
+					$this->y = (String)$element['y'];
+					$this->width = (String)$element['width'];
+					$this->height = (String)$element['height'];
+					if(isset($element['forecolor']))
+						$this->forecolor = SRColor::obtemRGB((String)$element['forecolor']);
+					if(isset($element['backcolor']))
+						$this->backcolor = SRColor::obtemRGB((String)$element['backcolor']);
+					$this->paintBackground = (String)$element['mode']=='Opaque';
+					break;
+				case 'textElement':
+					$this->textAlignment = (String)$element['textAlignment'];
+					$this->fontSize = (String)$element->font['size'];
+					$this->isBold = (String)$element->font['isBold'];
+					$this->isItalic = (String)$element->font['isItalic'];
+					break;
+				case 'textFieldExpression':
+					$text = (String)$element;
+					$init = substr($text, 0, 3);
+					$fim = substr($text, -1);
+					if($init == '$F{' && $fim == '}'){
+						$text = substr($text, 3, -1);
+					}elseif($init == '$P{' && $fim == '}'){
+						$text = SRParameter::get(substr($text, 3, -1));
+					}
+					$this->textFieldExpression = $text;
+					break;
+			}
+		
+		}
+		
+		/*
 		if(substr($xml['textFieldExpression']['#cdata-section'], 0, 3) == '$F{' && substr($xml['textFieldExpression']['#cdata-section'], -1) == '}'){
 			$xml['textFieldExpression']['#cdata-section'] = substr($xml['textFieldExpression']['#cdata-section'], 3, -1);
 		}
@@ -45,7 +81,7 @@ class TextField extends SRTextElements{
 		$this->forecolor = SRColor::obtemRGB(@$xml['reportElement']['forecolor']);
 		$this->backcolor = SRColor::obtemRGB(@$xml['reportElement']['backcolor']);
 		$this->paintBackground = @$xml['reportElement']['mode']=='Opaque';
-	
+		*/
 	}
 	
 	public function draw(&$pdf){

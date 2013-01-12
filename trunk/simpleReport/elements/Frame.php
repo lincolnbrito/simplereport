@@ -23,7 +23,7 @@ class Frame extends SRElements{
 	
 	private $elements = null;
 	
-	public function fill($xml){
+	public function fill(SimpleXMLElement $xml){
 		
 		echo '<pre>'; print_r($xml); echo '</pre>';
 		exit;
