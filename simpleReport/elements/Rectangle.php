@@ -22,10 +22,26 @@ require_once 'simpleReport/core/SRParameter.php';
 
 class Rectangle extends SRElements{
 		
-	public function fill($xml){
+	public function fill(SimpleXMLElement $xml){
 	
-		$d = SRParameter::get(@$xml['reportElement']['printWhenExpression']['#cdata-section']);
+		foreach ($xml as $elementName => $element){
+			switch($elementName){
+				case 'reportElement':
+					$this->x = (String)$element['x'];
+					$this->y = (String)$element['y'];
+					$this->width = (String)$element['width'];
+					$this->height = (String)$element['height'];
+					
+					if(isset($element['forecolor']))
+						$this->forecolor = SRColor::obtemRGB((String)$element['forecolor']);
+					if(isset($element['backcolor']))
+						$this->backcolor = SRColor::obtemRGB((String)$element['backcolor']);
+					break;
+			}
+		}
 		
+		/*
+		$d = SRParameter::get(@$xml['reportElement']['printWhenExpression']['#cdata-section']);
 		if($d){
 			$this->x = $xml['reportElement']['x'];
 			$this->y = $xml['reportElement']['y'];
@@ -35,7 +51,7 @@ class Rectangle extends SRElements{
 			$this->forecolor = SRColor::obtemRGB(@$xml['reportElement']['forecolor']);
 			$this->backcolor = SRColor::obtemRGB(@$xml['reportElement']['backcolor']);
 		}
-	
+		*/
 	}
 	
 	public function draw(&$pdf){

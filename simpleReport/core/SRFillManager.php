@@ -36,7 +36,6 @@ class SRFillManager{
 		
 		if($numP >1)
 			$this->dados = func_get_arg(1);
-
 		/*
 		while($r = $this->dados->next()){
 			echo '<pre>'; print_r($r); echo '</pre>';
@@ -72,13 +71,6 @@ class SRFillManager{
 	
 	private function rideReportData(){
 		
-		/*
-		require_once 'simpleReport/config.php';
-		$conexao = mysql_connect(SERVER, USER, PASSWORD);
-		$db_selected = mysql_select_db(DATABASE, $conexao);
-		$consulta = mysql_query($this->report->queryText, $conexao);
-		*/
-		
 		$jaLeuTitleNessaPagina = false;
 		$jaLeuPageHeaderNessaPagina = false;
 		$jaLeuColumnHeaderNessaPagina = false;
@@ -109,7 +101,7 @@ class SRFillManager{
 			if(isset($this->report->bandDetail->height)){
 				if(($free - $this->report->bandDetail->height) <= $this->report->bandDetail->height){
 					$this->setBand($this->report->bandColumnFooter);
-					$this->setBandPageFooter($this->report->bandPageFooter);
+					$this->setBand($this->report->bandPageFooter);
 					$this->addNewPage();
 					$jaLeuPageHeaderNessaPagina = false;
 					$jaLeuColumnHeaderNessaPagina = false;
@@ -165,7 +157,8 @@ class SRFillManager{
 			$c = clone $element;
 			$c->x = $element->x + $this->report->leftMargin;
 			$c->y = $element->y + $this->report->topMargin+$this->pageSizeFilled;
-			$c->textFieldExpression = $record[$element->textFieldExpression];
+			
+			$c->textFieldExpression = $record[@$element->textFieldExpression];
 			$c->draw($this->pdf, $this);
 			unset($c);
 			$this->clearConfig();

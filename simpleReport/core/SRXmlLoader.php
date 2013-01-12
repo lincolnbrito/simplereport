@@ -17,7 +17,6 @@ Licença Pública Geral GNU para maiores detalhes.
 Você encontrará uma cópia da Licença Pública Geral GNU no diretório
 license/COPYING.txt, se não, entre em <http://www.gnu.org/licenses/>
 */
-
 require_once 'simpleReport/core/SimpleDesign.php';
 require_once 'simpleReport/core/SRBand.php';
 require_once 'simpleReport/core/SRParameter.php';
@@ -29,23 +28,33 @@ require_once 'simpleReport/elements/Frame.php';
 require_once 'simpleReport/core/SRColor.php';
 require_once 'simpleReport/core/XML2Array.php';
 
+/**
+ * 
+ * @author anderson
+ * @name SRXmlLoader
+ * @version 1.0
+ * 
+ * Essa classe é responsavel por converter o arquivo .jrxml em uma
+ * instancia da classe SimpleReport
+ */
 class SRXmlLoader{
 
 	private $sd = null;
 	private $xml = null;
 
-	private function fillBand($bandName, $bandXML){
-				
+	private function fillBand($bandName, SimpleXMLElement $bandXML){
+		
 		if(!isset($bandXML['height']))
 			return;
 		
 		$band = new SRBand();
-		$band->height = $bandXML['height'];
+		$band->height = (String)$bandXML['height'];
 		
-		foreach ($bandXML as $c => $v){
-			if(file_exists('C:/www/SimpleReport/simpleReport/elements/'.$c.'.php')){
-				$e = new $c();
-				$e->fill($v);
+		foreach ($bandXML->children() as $element){
+			if(file_exists('C:/www/SimpleReport/simpleReport/elements/'.$element->getName().'.php')){
+				$nameElement = $element->getName();
+				$e = new $nameElement();
+				$e->fill($element);
 				$band->addElement($e);
 			}
 		}
@@ -55,36 +64,25 @@ class SRXmlLoader{
 	}
 	
 	public function load($sourceFileName){
-
-		if(!is_file($sourceFileName)){
-			echo 'Arquivo nao encontrado';
-			exit;
-		}
 		
-		$xmlArray = XML2Array::convert(file_get_contents($sourceFileName));
-
+		$xml = simplexml_load_file($sourceFileName);
+		
 		$this->sd = new SimpleDesign();
-		$this->sd->name = $xmlArray['name'];
-		$this->sd->width = $xmlArray['pageWidth'];
-		$this->sd->heigth = $xmlArray['pageHeight'];
-		$this->sd->topMargin = $xmlArray['topMargin'];
-		$this->sd->rightMargin = $xmlArray['rightMargin'];
-		$this->sd->leftMargin = $xmlArray['leftMargin'];
-		$this->sd->bottomMargin = $xmlArray['bottomMargin'];
-
-		foreach($xmlArray as $c => $v){
-			
-			switch ($c){
-				
-				// PARAMETERS
+		$this->sd->name = (String)$xml['name'];
+		$this->sd->width = (String)$xml['pageWidth'];
+		$this->sd->heigth = (String)$xml['pageHeight'];
+		$this->sd->topMargin = (String)$xml['topMargin'];
+		$this->sd->rightMargin = (String)$xml['rightMargin'];
+		$this->sd->leftMargin = (String)$xml['leftMargin'];
+		$this->sd->bottomMargin = (String)$xml['bottomMargin'];
+		
+		foreach ($xml as $elementName => $element){
+			switch ($elementName){
 				case 'parameter':
-					// $v['class'] -> java.lang.Boolean					
-					if(isset($v['defaultValueExpression']['#cdata-section'])){
-						SRParameter::set($v['name'], $v['defaultValueExpression']['#cdata-section']==='true');
+					// (String)$element['class'] -> java.lang.Boolean
+					if(isset($element->defaultValueExpression)){
+						SRParameter::set((String)$element['name'], (String)$element->defaultValueExpression);
 					}
-					break;
-
-				// BANDS
 				case 'title':
 				case 'pageHeader':
 				case 'columnHeader':
@@ -92,13 +90,13 @@ class SRXmlLoader{
 				case 'columnFooter':
 				case 'pageFooter':
 				case 'lastPageFooter':
-				case 'summary':					
-					$this->fillBand($c, $v['band']);
+				case 'summary':
+					$this->fillBand($elementName, $element->band);
 					break;
 			}
 		}
-			
-		return $this->sd;
+		return $this->sd;	
 	}
+	
 }
 ?>

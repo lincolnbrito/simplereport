@@ -25,24 +25,34 @@ class StaticText extends SRTextElements{
 	public $text;
 	public $paintBackground;
 	
-	public function fill($xml){
+	public function fill(SimpleXMLElement $xml){
 				
-		$this->text = $xml['text']['#cdata-section'];
-		$this->x = $xml['reportElement']['x'];
-		$this->y = $xml['reportElement']['y'];
-		$this->width = $xml['reportElement']['width'];
-		$this->height = $xml['reportElement']['height'];
-		
-		$this->textAlignment = $xml['textElement']['textAlignment'];
-		
-		$this->isBold = $xml['textElement']['font']['isBold'];
-		$this->isItalic = $xml['textElement']['font']['isItalic'];
-		$this->fontSize = $xml['textElement']['font']['size'];
-		
-		$this->forecolor = SRColor::obtemRGB(@$xml['reportElement']['forecolor']);
-		$this->backcolor = SRColor::obtemRGB(@$xml['reportElement']['backcolor']);
-		$this->paintBackground = @$xml['reportElement']['mode']=='Opaque';
-		
+		foreach ($xml as $elementName => $element){
+			
+			switch($elementName){
+				case 'reportElement':
+					$this->x = (String)$element['x'];
+					$this->y = (String)$element['y'];
+					$this->width = (String)$element['width'];
+					$this->height = (String)$element['height'];
+					if(isset($element['forecolor']))
+						$this->forecolor = SRColor::obtemRGB((String)$element['forecolor']);
+					if(isset($element['backcolor']))
+						$this->backcolor = SRColor::obtemRGB((String)$element['backcolor']);
+					$this->paintBackground = (String)$element['mode']=='Opaque';
+					break;
+				case 'textElement':
+					$this->textAlignment = (String)$element['textAlignment'];
+					$this->fontSize = (String)$element->font['size'];
+					$this->isBold = (String)$element->font['isBold'];
+					$this->isItalic = (String)$element->font['isItalic'];
+					break;
+				case 'text':
+					$this->text = utf8_decode((String)$element);
+					break;
+			}
+
+		}
 	}
 	
 	public function draw(&$pdf){

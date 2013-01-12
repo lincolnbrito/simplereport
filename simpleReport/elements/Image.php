@@ -24,17 +24,23 @@ class Image extends SRElements{
 	public $imageExpression;
 	public $extension;
 	
-	public function fill($xml){
-	
-		$xml['imageExpression']['#cdata-section'] = str_replace('"', '', $xml['imageExpression']['#cdata-section']); 
-		$this->extension = substr($xml['imageExpression']['#cdata-section'], -3);
-		$this->imageExpression = $xml['imageExpression']['#cdata-section'];
-		
-		$this->x = $xml['reportElement']['x'];
-		$this->y = $xml['reportElement']['y'];
-		$this->width = $xml['reportElement']['width'];
-		$this->height = $xml['reportElement']['height'];
-		
+	public function fill(SimpleXMLElement $xml){
+		foreach ($xml as $elementName => $element){
+			switch($elementName){
+				case 'reportElement':
+					$this->x = (String)$element['x'];
+					$this->y = (String)$element['y'];
+					$this->width = (String)$element['width'];
+					$this->height = (String)$element['height'];
+					break;
+					
+				case 'imageExpression':
+					$nameFile = str_replace('"', '', (String)$element);
+					$this->extension = substr($nameFile, -3);
+					$this->imageExpression = $nameFile;
+					break;
+			}
+		}
 	}
 	
 	public function draw(&$pdf){
@@ -42,5 +48,4 @@ class Image extends SRElements{
 	}
 	
 }
-
 ?>
