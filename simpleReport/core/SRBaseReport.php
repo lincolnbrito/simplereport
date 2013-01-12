@@ -19,22 +19,17 @@ license/COPYING.txt, se não, entre em <http://www.gnu.org/licenses/>
 */
 
 class SRBaseReport{
-	
 	public $name = 'nameReport';
-	
 	// Page Size
 	public $width = 595;
 	public $heigth = 842;
-	
 	// Margins
 	public $leftMargin = 20;
 	public $rightMargin = 20;
 	public $topMargin = 20;
 	public $bottomMargin = 20;
-	
 	// More
 	public $queryText = '';
-	
 	// Bands
 	public $bandTitle;
 	public $bandPageHeader;
@@ -46,8 +41,7 @@ class SRBaseReport{
 	public $bandSummary;
 	public $bandBackground;
 	public $bandNoData;
-	
+	// Parameters
 	public $parameters;
 }
-
 ?>
