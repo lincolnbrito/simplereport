@@ -29,10 +29,16 @@ class SimplePrint{
 		$this->pdf->Output();	
 	}
 	
-	public function export(){
-		// implementar depois
+	/**
+	 * 
+	 * @param String $name Nome do arquivo que será enviado para download
+	 */
+	public function export($name = 'doc.pdf'){
+		$ext = substr($name, -4);
+		if($ext != '.pdf')
+			$name .= '.pdf';
+		$this->pdf->Output($name, 'D');
 	}
 	
 }
-
 ?>

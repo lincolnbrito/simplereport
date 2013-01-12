@@ -51,8 +51,8 @@ final class Report{
 		$this->print->outPut();
 	}
 
-	public function export(){
-		$this->print->export();
+	public function export($name = 'doc.pdf'){
+		$this->print->export($name);
 	}
 
 	public static function from($file, $dados = null){
