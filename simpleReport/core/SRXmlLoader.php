@@ -51,7 +51,7 @@ class SRXmlLoader{
 		$band->height = (String)$bandXML['height'];
 		
 		foreach ($bandXML->children() as $element){
-			if(file_exists('C:/www/SimpleReport/simpleReport/elements/'.$element->getName().'.php')){
+			if(file_exists(dirname(__FILE__).'/../../simpleReport/elements/'.$element->getName().'.php')){
 				$nameElement = $element->getName();
 				$e = new $nameElement();
 				$e->fill($element);
