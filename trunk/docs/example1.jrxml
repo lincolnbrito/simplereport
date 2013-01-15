@@ -7,22 +7,23 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="114" splitType="Stretch">
+		<band height="150" splitType="Stretch">
 			<image>
-				<reportElement uuid="58a7d60b-8ef3-46d4-ba94-bc85bf941d87" x="0" y="0" width="120" height="110"/>
-				<imageExpression><![CDATA["C:\\Users\\anderson\\Desktop\\logo.gif"]]></imageExpression>
+				<reportElement uuid="063c6808-f773-4c5c-827f-04e34418dd45" x="165" y="2" width="200" height="112"/>
+				<imageExpression><![CDATA["C:\\www\\SimpleReport\\docs\\imagens\\php-logo.png"]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement uuid="473efa40-cd75-4426-8e89-122c77c98a68" mode="Transparent" x="120" y="0" width="435" height="114" forecolor="#009900" backcolor="#999900"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="24" isBold="true" isItalic="true"/>
-				</textElement>
-				<text><![CDATA[Relatório de consultas]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="45" splitType="Stretch"/>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="473efa40-cd75-4426-8e89-122c77c98a68" mode="Transparent" x="0" y="0" width="555" height="45" forecolor="#0000CC" backcolor="#999900"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Primeiro relatório utilizando o Simple Report]]></text>
+			</staticText>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="61" splitType="Stretch"/>
