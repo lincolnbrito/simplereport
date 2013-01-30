@@ -1,5 +1,4 @@
 <?php
-require_once 'simpleReport/core/SRParameter.php';
 require_once 'simpleReport/core/SRDataSource.php';
 require_once 'simpleReport/Report.php';
 
