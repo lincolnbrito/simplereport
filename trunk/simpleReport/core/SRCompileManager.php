@@ -34,7 +34,7 @@ abstract class SRCompileManager{
 		$serializedFile = implode(':', $serializedFile);
 		
 		// Cria o arquivo serializado
-		//file_put_contents($sourceFileName.'.sr', $serializedFile);
+		file_put_contents($sourceFileName.'.sr', $serializedFile);
 		
 		return SRInstanceManager::getInstance($serializedFile);
 	}  

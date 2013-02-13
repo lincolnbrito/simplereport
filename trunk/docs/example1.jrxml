@@ -21,7 +21,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="24" isBold="true" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Primeiro relatório utilizando o Simple Report]]></text>
+				<text><![CDATA[Relatório utilizando o SimpleReport]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

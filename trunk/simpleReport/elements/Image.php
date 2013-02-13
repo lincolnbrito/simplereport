@@ -23,7 +23,7 @@ class Image extends SRElements{
 
 	public $imageExpression;
 	public $extension;
-	
+
 	public function fill(SimpleXMLElement $xml){
 		foreach ($xml as $elementName => $element){
 			switch($elementName){

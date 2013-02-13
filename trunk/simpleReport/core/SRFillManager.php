@@ -36,12 +36,6 @@ class SRFillManager{
 		
 		if($numP >1)
 			$this->dados = func_get_arg(1);
-		/*
-		while($r = $this->dados->next()){
-			echo '<pre>'; print_r($r); echo '</pre>';
-		}
-		exit;
-		*/
 		
 		$this->sizePage = $this->report->heigth;
 		$this->pdf = new FPDF('p', 'pt', 'A4');

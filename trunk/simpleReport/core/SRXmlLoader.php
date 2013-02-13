@@ -20,13 +20,12 @@ license/COPYING.txt, se não, entre em <http://www.gnu.org/licenses/>
 require_once 'simpleReport/core/SimpleDesign.php';
 require_once 'simpleReport/core/SRBand.php';
 require_once 'simpleReport/core/SRParameter.php';
+require_once 'simpleReport/core/SRColor.php';
+
 require_once 'simpleReport/elements/StaticText.php';
 require_once 'simpleReport/elements/TextField.php';
 require_once 'simpleReport/elements/Image.php';
 require_once 'simpleReport/elements/Rectangle.php';
-require_once 'simpleReport/elements/Frame.php';
-require_once 'simpleReport/core/SRColor.php';
-require_once 'simpleReport/core/XML2Array.php';
 
 /**
  * 
@@ -42,6 +41,12 @@ class SRXmlLoader{
 	private $sd = null;
 	private $xml = null;
 
+	function __autoload($classname) {
+		echo $classname;exit;
+		$filename = "./". $classname .".php";
+		include_once($filename);
+	}
+	
 	private function fillBand($bandName, SimpleXMLElement $bandXML){
 		
 		if(!isset($bandXML['height']))
@@ -79,10 +84,10 @@ class SRXmlLoader{
 		foreach ($xml as $elementName => $element){
 			switch ($elementName){
 				case 'parameter':
-					// (String)$element['class'] -> java.lang.Boolean
-					if(isset($element->defaultValueExpression)){
+					if(isset($element->defaultValueExpression))
 						SRParameter::set((String)$element['name'], (String)$element->defaultValueExpression);
-					}
+					break;
+					
 				case 'title':
 				case 'pageHeader':
 				case 'columnHeader':

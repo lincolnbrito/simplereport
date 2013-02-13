@@ -40,18 +40,6 @@ class Rectangle extends SRElements{
 			}
 		}
 		
-		/*
-		$d = SRParameter::get(@$xml['reportElement']['printWhenExpression']['#cdata-section']);
-		if($d){
-			$this->x = $xml['reportElement']['x'];
-			$this->y = $xml['reportElement']['y'];
-			$this->width = $xml['reportElement']['width'];
-			$this->height = $xml['reportElement']['height'];
-			
-			$this->forecolor = SRColor::obtemRGB(@$xml['reportElement']['forecolor']);
-			$this->backcolor = SRColor::obtemRGB(@$xml['reportElement']['backcolor']);
-		}
-		*/
 	}
 	
 	public function draw(&$pdf){

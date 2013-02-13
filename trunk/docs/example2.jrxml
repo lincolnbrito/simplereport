@@ -95,10 +95,10 @@
 	<lastPageFooter>
 		<band height="63">
 			<rectangle>
-				<reportElement uuid="ed69de5d-5f18-4533-9437-bdc47b88d55d" x="0" y="0" width="555" height="63" backcolor="#999900"/>
+				<reportElement uuid="ed69de5d-5f18-4533-9437-bdc47b88d55d" x="0" y="0" width="555" height="63" backcolor="#FFFFFF"/>
 			</rectangle>
 			<staticText>
-				<reportElement uuid="e91c4c32-cac3-4def-9607-eca5ba9fa64f" x="47" y="13" width="100" height="20"/>
+				<reportElement uuid="e91c4c32-cac3-4def-9607-eca5ba9fa64f" x="213" y="24" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[Last page footer]]></text>
 			</staticText>

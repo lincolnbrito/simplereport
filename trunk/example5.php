@@ -12,7 +12,6 @@ require_once 'simpleReport/core/SRColor.php';
 
 $sd = new SimpleDesign();
 $sd->name = 'Report';
-$sd->queryText = 'select * from alunos limit 35';
 
 $sd->width = 595;
 $sd->heigth = 842;
@@ -34,7 +33,7 @@ $image->height = 31;
 $bandTitle->addElement($image);
 
 $staticText1 = new StaticText();
-$staticText1->text = "Testando";
+$staticText1->text = "Texto na banda title alinhado a direita";
 $staticText1->x = 0;
 $staticText1->y = 31;
 $staticText1->width = 555;
@@ -53,7 +52,7 @@ $sd->bandTitle = $bandTitle;
 $pageHeader = new SRBand();
 $pageHeader->height = 35;
 $staticText1 = new StaticText();
-$staticText1->text = "Alunos do curso - Page Header";
+$staticText1->text = "Page Header";
 $staticText1->x = 0;
 $staticText1->y = 0;
 $staticText1->width = 555;
@@ -92,38 +91,11 @@ $sd->bandColumnHeader = $columnHeader;
 // FIM -  BANDA COLUMN HEADER
 
 
-// INICIO - BANDA DETAIL
-$detail = new SRBand();
-$detail->height = 29;
-$field = new TextField();
-$field->x = 0;
-$field->y = 0;
-$field->width = 64;
-$field->height = 20;
-$field->textFieldExpression =  'id';
-$field->fontSize = 12;
-$field->textAlignment = 'R';
-$detail->addElement($field);
-unset($field);
-
-$field = new TextField();
-$field->x = 95;
-$field->y = 0;
-$field->width = 460;
-$field->height = 20;
-$field->textFieldExpression = 'nome';
-$field->fontSize = 12;
-$detail->addElement($field);
-unset($field);
-$sd->bandDetail = $detail;
-// FIM  - BANDA DETAIL
-
-
 // INICIO - BANDA PAGE FOOTER
 $pageFooter = new SRBand();
 $pageFooter->height = 27;
 $staticText1 = new StaticText();
-$staticText1->text = "Alunos do curso - Page Footer";
+$staticText1->text = "Page Footer";
 $staticText1->x = 0;
 $staticText1->y = 0;
 $staticText1->width = 555;
@@ -139,7 +111,7 @@ $sd->bandPageFooter = $pageFooter;
 $lastPageFooter = new SRBand();
 $lastPageFooter->height = 27;
 $staticText1 = new StaticText();
-$staticText1->text = "Alunos do curso - Last Page Footer";
+$staticText1->text = "Last Page Footer";
 $staticText1->x = 0;
 $staticText1->y = 0;
 $staticText1->width = 555;
@@ -155,7 +127,7 @@ $sd->bandLastPageFooter = $lastPageFooter;
 $summary = new SRBand();
 $summary->height = 27;
 $staticText1 = new StaticText();
-$staticText1->text = "Alunos do curso - Summary";
+$staticText1->text = "Summary";
 $staticText1->x = 0;
 $staticText1->y = 0;
 $staticText1->width = 555;
