@@ -58,30 +58,7 @@ class TextField extends SRTextElements{
 					$this->textFieldExpression = $text;
 					break;
 			}
-		
 		}
-		
-		/*
-		if(substr($xml['textFieldExpression']['#cdata-section'], 0, 3) == '$F{' && substr($xml['textFieldExpression']['#cdata-section'], -1) == '}'){
-			$xml['textFieldExpression']['#cdata-section'] = substr($xml['textFieldExpression']['#cdata-section'], 3, -1);
-		}
-		
-		$this->textFieldExpression = $xml['textFieldExpression']['#cdata-section'];
-		$this->x = $xml['reportElement']['x'];
-		$this->y = $xml['reportElement']['y'];
-		$this->width = $xml['reportElement']['width'];
-		$this->height = $xml['reportElement']['height'];
-	
-		$this->textAlignment = $xml['textElement']['textAlignment'];
-	
-		$this->isBold = $xml['textElement']['font']['isBold'];
-		$this->isItalic = $xml['textElement']['font']['isItalic'];
-		$this->fontSize = $xml['textElement']['font']['size'];
-	
-		$this->forecolor = SRColor::obtemRGB(@$xml['reportElement']['forecolor']);
-		$this->backcolor = SRColor::obtemRGB(@$xml['reportElement']['backcolor']);
-		$this->paintBackground = @$xml['reportElement']['mode']=='Opaque';
-		*/
 	}
 	
 	public function draw(&$pdf){
