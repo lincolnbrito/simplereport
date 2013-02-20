@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="example1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2f3dbe45-2b37-4020-b562-e2d87b5cafd9">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="13"/>
 	<property name="ireport.y" value="0"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -9,7 +9,7 @@
 	<title>
 		<band height="150" splitType="Stretch">
 			<image>
-				<reportElement uuid="063c6808-f773-4c5c-827f-04e34418dd45" x="165" y="2" width="200" height="112"/>
+				<reportElement uuid="063c6808-f773-4c5c-827f-04e34418dd45" x="0" y="19" width="200" height="112"/>
 				<imageExpression><![CDATA["C:\\www\\SimpleReport\\docs\\imagens\\php-logo.png"]]></imageExpression>
 			</image>
 		</band>
@@ -17,7 +17,7 @@
 	<pageHeader>
 		<band height="45" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="473efa40-cd75-4426-8e89-122c77c98a68" mode="Transparent" x="0" y="0" width="555" height="45" forecolor="#0000CC" backcolor="#999900"/>
+				<reportElement uuid="473efa40-cd75-4426-8e89-122c77c98a68" mode="Transparent" x="0" y="0" width="555" height="45" forecolor="#990000" backcolor="#999900"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="24" isBold="true" isItalic="true"/>
 				</textElement>
