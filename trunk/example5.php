@@ -40,7 +40,7 @@ $staticText1->width = 555;
 $staticText1->height = 38;
 $staticText1->isBold = true;
 $staticText1->isItalic = true;
-$staticText1->textAlignment = 'R';
+$staticText1->textAlignment = 'L';
 $staticText1->fontSize = 20;
 $bandTitle->addElement($staticText1);
 
